@@ -1,16 +1,20 @@
 import React,{useState,useEffect} from 'react'
-import { add } from '../Reducers/OrganisationSlice'
+import { addSubAdmin } from '../Reducers/SubAdminSlice';
 import NavBar from './NavBar'
 import {useDispatch} from "react-redux";
+import moment from 'moment'
+import { useNavigate } from 'react-router-dom';
 
 export default function AddSubAdminProfile() {
     const [subAdminName, setSubAdminName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [adminDate, setAdminDate] = useState('');
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        add();
+        addSubAdmin();
     }, []);
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,13 +22,17 @@ export default function AddSubAdminProfile() {
             subAdminName: subAdminName,
             email: email,
             password: password,
+            adminDate:moment().format('DD/MM/YYYY'),
+            isArchive:0,
         };
         console.log(obj);
         
-        dispatch(add(obj));
+        dispatch(addSubAdmin(obj));
         setSubAdminName("");
         setEmail("");
         setPassword("");
+        setAdminDate("");
+        navigate("/SubAdminProfile")
     };
   return (
     <div>

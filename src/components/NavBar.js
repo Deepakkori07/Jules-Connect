@@ -49,7 +49,7 @@ export default function NavBar() {
                     <li>
                       <span
                         className="dropdown-item"
-                        //onClick={() => navigate("/AddTrader")}
+                        onClick={() => navigate("/ArchivedTrader")}
                       >
                         Archive
                       </span>
@@ -77,7 +77,7 @@ export default function NavBar() {
                     <li>
                       <span
                         className="dropdown-item"
-                        onClick={() => navigate("/AllOrganisation")}
+                        onClick={() => navigate("/ArchivedCategory")}
                       >
                         Archived Catergories
                       </span>
@@ -93,7 +93,7 @@ export default function NavBar() {
                     <li>
                       <span
                         className="dropdown-item"
-                        onClick={() => navigate("/AllOrganisation")}
+                        onClick={() => navigate("/ArchivedMaterials")}
                       >
                         Archived Material
                       </span>

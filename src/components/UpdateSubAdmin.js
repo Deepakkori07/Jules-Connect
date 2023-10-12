@@ -3,24 +3,27 @@ import NavBar from './NavBar'
 import { useParams,useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { useDispatch } from 'react-redux'
-import { update } from '../Reducers/OrganisationSlice'
+import { updateSubAdmin } from '../Reducers/SubAdminSlice'
+import moment from 'moment'
 
 export default function UpdateSubAdmin() {
-  const {organisations} = useSelector((state) => state.organisations)
+  const {subAdmin} = useSelector((state) => state.subAdmin)
   const {id} = useParams();
   const [currSubAdminName, setCurrSubAdminName] = useState("")
   const [currSubAdminEmail, setCurrSubAdminEmail] = useState("")
   const [currSubAdminPassword, setCurrSubAdminPassword] = useState("")
+  const [currAdminDate, setcurrAdminDate] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const setCurrSubAdminData = (ids) => {
-    let SubAdminId = organisations.find((item) => {
+    let SubAdminId = subAdmin.find((item) => {
       return item.id === ids;
     });
     setCurrSubAdminName(SubAdminId.subAdminName);
     setCurrSubAdminEmail(SubAdminId.email);
     setCurrSubAdminPassword(SubAdminId.password);
+    setcurrAdminDate(SubAdminId.adminDate);
   };
   useEffect(() => {
     setCurrSubAdminData(id);
@@ -31,9 +34,11 @@ export default function UpdateSubAdmin() {
       subAdminName: currSubAdminName,
       email: currSubAdminEmail,
       password: currSubAdminPassword,
+      adminDate: moment().format('DD/MM/YYYY'),
+      isArchive:0,
       id,
     };
-    dispatch(update(obj));
+    dispatch(updateSubAdmin(obj));
     navigate("/SubAdminProfile");
   }
   return (

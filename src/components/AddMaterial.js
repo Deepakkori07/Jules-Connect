@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
-import { add } from "../Reducers/OrganisationSlice";
+import { addMaterial } from "../Reducers/MaterialSlice";
 import { useDispatch } from "react-redux";
+import moment from "moment/moment";
+
 
 export default function AddMaterial() {
   const [materialName, setmaterialName] = useState("");
@@ -13,10 +15,12 @@ export default function AddMaterial() {
   const [materialLocation, setmaterialLocation] = useState("");
   const [materialBasicName, setmaterialBasicName] = useState("");
   const [materialNotes, setmaterialNotes] = useState("");
+  const [materialDate, setMaterialDate] = useState("");
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
-    add();
+    addMaterial();
   }, []);
 
   const addMaterialHandle = (e) => {
@@ -31,10 +35,13 @@ export default function AddMaterial() {
       materialLocation: materialLocation,
       materialBasicName: materialBasicName,
       materialNotes: materialNotes,
+      materialDate:moment().format('DD/MM/YYYY'),
+      isArchive:0,
+      
     };
     console.log(obj);
 
-    dispatch(add(obj));
+    dispatch(addMaterial(obj));
     setmaterialName("");
     setShotCode("");
     setmaterialCategory("");
@@ -44,6 +51,7 @@ export default function AddMaterial() {
     setmaterialLocation("");
     setmaterialBasicName("");
     setmaterialNotes("");
+    setMaterialDate("");
   };
   return (
     <div>

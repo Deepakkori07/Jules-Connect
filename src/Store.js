@@ -1,5 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import  add  from "./Reducers/OrganisationSlice";
+import  addMaterial  from "./Reducers/MaterialSlice";
+import  addTrader  from "./Reducers/TraderSlice";
+import  addCategory  from "./Reducers/CategorySlice";
+import  addSubAdmin  from "./Reducers/SubAdminSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
@@ -13,6 +17,10 @@ const persistConfig = {
 
 const reducer = combineReducers({
     organisations: add,
+    materials: addMaterial,
+    traders: addTrader,
+    categories: addCategory,
+    subAdmin: addSubAdmin,
 });
 
 const persistedReducer = persistReducer (persistConfig, reducer);

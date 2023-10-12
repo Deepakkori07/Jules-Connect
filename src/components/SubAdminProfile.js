@@ -1,13 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import { archiveSubAdmin } from "../Reducers/SubAdminSlice";
+import { useDispatch } from "react-redux";
 
 import NavBar from "./NavBar";
 
 export default function SubAdminProfile() {
-  const { organisations } = useSelector((state) => state.organisations);
-  console.log(organisations);
+  const { subAdmin } = useSelector((state) => state.subAdmin);
+  console.log(subAdmin);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const updateArchive = (ids) => {
+    let obj = {
+      isArchive:1,
+      id:ids,
+    };
+    dispatch(archiveSubAdmin(obj));
+  }
   return (
     <div>
       <NavBar />
@@ -18,16 +29,18 @@ export default function SubAdminProfile() {
             <th>Sub-Admin Name</th>
             <th>Email </th>
             <th>Created on Date</th>
+            <th></th>
           </tr>
 
-          {organisations.length &&
-            organisations.map((item) => {
+          {subAdmin.length &&
+            subAdmin.map((item) => {
+              if(item.isArchive === 0){
               return (
                 <tr>
                   <td>{item.subAdminName}</td>
                   <td>{item.email}</td>
                   <td>
-                    <b>{item.date}</b>
+                    <b>{item.adminDate}</b>
                   </td>
                   <td>
                     <span className="t1">
@@ -47,6 +60,8 @@ export default function SubAdminProfile() {
                             d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
                           />
                         </svg>
+                        </span>
+                        <span onClick={() => {updateArchive(item.id)}}> 
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -70,6 +85,7 @@ export default function SubAdminProfile() {
                   <td></td>
                 </tr>
               );
+              }
             })}
         </table>
       </div>

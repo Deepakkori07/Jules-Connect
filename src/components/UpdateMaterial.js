@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useParams,useNavigate } from "react-router-dom";
-import { update } from "../Reducers/OrganisationSlice";
+import { updateMaterial } from "../Reducers/MaterialSlice";
 import { useDispatch } from "react-redux";
+import moment from "moment/moment";
 
 
 export default function UpdateMaterial() {
-  const { organisations } = useSelector((state) => state.organisations);
+  const { materials } = useSelector((state) => state.materials);
   const { id } = useParams();
   const [currMaterialName, setCurrMaterialName] = useState("");
   const [currMaterialShotCode, setCurrShotCode] = useState("");
@@ -18,11 +19,12 @@ export default function UpdateMaterial() {
   const [currMaterialLocation, setCurrMaterialLocation] = useState("");
   const [currMaterialBasicName, setCurrMaterialBasicName] = useState("");
   const [currMaterialNotes, setCurrMaterialNotes] = useState("");
+  const [currDate, setCurrDate] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const setCurrMaterialData = (ids) => {
-    let materialId = organisations.find((item) => {
+    let materialId = materials.find((item) => {
       return item.id === ids;
     });
     setCurrMaterialName(materialId.materialName);
@@ -34,10 +36,11 @@ export default function UpdateMaterial() {
     setCurrMaterialLocation(materialId.materialLocation);
     setCurrMaterialBasicName(materialId.materialBasicName);
     setCurrMaterialNotes(materialId.materialNotes);
+    setCurrDate(materialId.materialDate);
   };
 
   // console.log("hiiii");
-  // console.log(organisations);
+  // console.log(materials);
 
   useEffect(() => {
       console.log("hiiii");
@@ -59,11 +62,12 @@ export default function UpdateMaterial() {
       materialLocation: currMaterialLocation,
       materialBasicName: currMaterialBasicName,
       materialNotes: currMaterialNotes,
+      materialDate:moment().format('DD/MM/YYYY'),
       id,
       
     };
     
-    dispatch(update(obj));
+    dispatch(updateMaterial(obj));
     navigate("/ViewMaterial");
   };
 
@@ -158,7 +162,7 @@ export default function UpdateMaterial() {
           <input type="textfield" placeholder="Notes/TradesBrief" />
         </div>
         <button className="btn btn-danger" onClick={updateMaterialData}>
-          Add Material
+          Update Material
         </button>
       </form>
     </div>

@@ -2,20 +2,21 @@ import React,{useState,useEffect} from 'react'
 import NavBar from "./NavBar"
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { add } from '../Reducers/OrganisationSlice'
-// import { useSelector } from 'react-redux/es/hooks/useSelector'
+import { addTrader } from '../Reducers/TraderSlice'
+import moment from 'moment/moment'
+
 
 export default function AddTrader() {
     const navigate = useNavigate();
-    // const {organisations} = useSelector((state) => state.organisations)
     const [traderName, setTraderName] = useState("")
     const [traderEmail, setTraderEmail] = useState("")
     const [traderPassword, setTraderPassword] = useState("")
     const [traderCategory, setTraderCategory] = useState("")
+    const [traderDate, setTraderDate] = useState("")
     const dispatch = useDispatch();
 
     useEffect(() => {
-        add();
+        addTrader();
     }, []);
 
      const addTraderHandle = (e) => {
@@ -25,12 +26,15 @@ export default function AddTrader() {
             traderEmail: traderEmail,
             traderPassword: traderPassword,
             traderCategory: traderCategory,
+            isArchive:0,
+            traderDate:moment().format('DD/MM/YYYY'),
         };
-        dispatch(add(obj));
+        dispatch(addTrader(obj));
         setTraderName("");
         setTraderEmail("");
         setTraderPassword("");
         setTraderCategory("");
+        setTraderDate("");
         navigate("/MyTraders")
      };
   return (

@@ -3,11 +3,11 @@ import NavBar from './NavBar'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { useParams,useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { update } from '../Reducers/OrganisationSlice'
+import { updateTrader } from '../Reducers/TraderSlice'
 
 
 export default function UpdateTrader() {
-    const {organisations} = useSelector((state) => state.organisations)
+    const {traders} = useSelector((state) => state.traders)
     const {id} = useParams();
     const [currTraderName, setCurrTraderName] = useState("")
     const [currTraderEmail, setCurrTraderEmail] = useState("")
@@ -17,7 +17,7 @@ export default function UpdateTrader() {
     const navigate = useNavigate();
 
     const setCurrTraderData = (ids) => {
-        let traderID = organisations.find((item) => {
+        let traderID = traders.find((item) => {
             return item.id === ids;
         });
         setCurrTraderName(traderID.traderName);
@@ -38,7 +38,7 @@ export default function UpdateTrader() {
             tradercategory: currTraderCategory,
             id,
         };
-        dispatch(update(obj));
+        dispatch(updateTrader(obj));
         navigate("/MyTraders");
     };
   return (

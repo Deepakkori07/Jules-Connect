@@ -14,6 +14,11 @@ import AddTrader from "./components/AddTrader";
 import MyTraders from "./components/MyTraders";
 import UpdateTrader from "./components/UpdateTrader";
 import Unit from "./components/Unit";
+import ArchivedTrader from "./components/ArchivedTrader";
+import ArchivedMaterials from "./components/ArchivedMaterials";
+import ArchivedCategory from "./components/ArchivedCategory";
+import UpdateCategory from "./components/UpdateCategory";
+import ArchivedSubAdmin from "./components/ArchivedSubAdmin";
 
 function App() {
   return (
@@ -32,6 +37,11 @@ function App() {
       <Route path="/MyTraders" element={<MyTraders/>} />
       <Route path="/UpdateTrader/:id" element={<UpdateTrader/>} />
       <Route path="/Unit" element={<Unit/>} />
+      <Route path="/ArchivedTrader" element={<ArchivedTrader/>} />
+      <Route path="/ArchivedMaterials" element={<ArchivedMaterials/>} />
+      <Route path="/ArchivedCategory" element={<ArchivedCategory/>} />
+      <Route path="/UpdateCategory/:id" element={<UpdateCategory/>} />
+      <Route path="/ArchivedSubAdmin" element={<ArchivedSubAdmin/>} />
     </Routes>
   );
 }

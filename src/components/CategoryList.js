@@ -1,30 +1,44 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
-import { add } from "../Reducers/OrganisationSlice";
+import { addCategory } from "../Reducers/CategorySlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useNavigate } from "react-router-dom";
+import { archiveCategory } from "../Reducers/CategorySlice";
+import moment from "moment/moment";
 
 export default function CategoryList() {
-  const [categories, setCategories] = useState("");
-  const {organisations} = useSelector((state) => state.organisations);
+  const [materialCategory, setMaterialCategory] = useState("");
+  const [categoryDate, setCategoryDate] = useState("");
+  const {categories} = useSelector((state) => state.categories);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(add);
+  console.log(addCategory);
 
   useEffect(() => {
-    add();
+    addCategory();
   }, []);
   const addCategoryHandle = (e) => {
     e.preventDefault();
     let obj = {
-      categories: categories,
+      materialCategory: materialCategory,
+      categoryDate:moment().format('DD/MM/YYYY'),
+      isArchive:0,
     };
     console.log(obj);
 
-    dispatch(add(obj));
-    setCategories("");
+    dispatch(addCategory(obj));
+    setMaterialCategory("");
+    setCategoryDate("");
   };
+
+  const updateArchive = (ids) => {
+    let obj = {
+      isArchive:1,
+      id:ids,
+    };
+    dispatch(archiveCategory(obj));
+  }
 
   return (
     <div>
@@ -32,7 +46,7 @@ export default function CategoryList() {
       <nav className="navbar bg-body-tertiary">
         <div className="container-fluid">
           <span>
-            <h4 style={{ color: "red" }}>All Categories</h4>
+            <h4 style={{ color: "red" }}>All materialCategory</h4>
           </span>
           <form className="d-flex" role="search">
             <input
@@ -49,7 +63,7 @@ export default function CategoryList() {
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
-              Add Categories +
+              Add materialCategory +
             </button>
             <button
               className="btn btn-primary"
@@ -76,7 +90,7 @@ export default function CategoryList() {
                 <div class="modal-content">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                      Add Categories
+                      Add materialCategory
                     </h1>
                     <button
                       type="button"
@@ -86,7 +100,7 @@ export default function CategoryList() {
                     ></button>
                   </div>
                   <div class="modal-body">
-                    <input type="text" value={categories} onChange={(e) => setCategories(e.target.value)}/>
+                    <input type="text" value={materialCategory} onChange={(e) => setMaterialCategory(e.target.value)}/>
                   </div>
                   <div class="modal-footer">
                     <button
@@ -119,18 +133,16 @@ export default function CategoryList() {
             <th>Material</th>
           </tr>
 
-          {organisations.length &&
-            organisations.map((item) => {
+          {categories.length &&
+            categories.map((item) => {
+              if(item.isArchive === 0){
               return (
                 <tr>
-                  <td>{item.categories}</td>
-                  <td>{item.date}</td>
-                  <td>
-                    <b>NA</b>
-                  </td>
+                  <td>{item.materialCategory}</td>
+                  <td>{item.categoryDate}</td>
                   <td>
                     <span className="t1">
-                      <span>
+                      <span onClick={() => navigate(`/UpdateCategory/${item.id}`)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -138,11 +150,13 @@ export default function CategoryList() {
                         fill="currentColor"
                         class="bi bi-eye-fill"
                         viewBox="0 0 16 16"
-                        onClick={() => navigate(`/ViewOrganisation/${item.id}`)}
+                        
                       >
                         <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
                         <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
                       </svg>
+                      </span>
+                      <span onClick={() => updateArchive(item.id)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -163,9 +177,9 @@ export default function CategoryList() {
                       </span>
                     </span>
                   </td>
-                  <td></td>
                 </tr>
               );
+              }
             })}
         </table>
       </div>
