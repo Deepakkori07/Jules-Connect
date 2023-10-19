@@ -43,6 +43,7 @@ export default function ViewMaterial() {
             >
               Add Material +
             </button>
+        
             <button
               className="btn btn-primary"
               type="button"
@@ -69,7 +70,7 @@ export default function ViewMaterial() {
             <th></th>
           </tr>
 
-          {materials.length &&
+          {materials && 
             materials.map((item) => {
               if(item.isArchive === 0){
 

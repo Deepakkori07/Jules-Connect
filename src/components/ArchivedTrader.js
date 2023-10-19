@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import NavBar from "./NavBar";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
@@ -6,6 +6,7 @@ import { unarchiveTrader } from "../Reducers/TraderSlice";
 
 export default function ArchivedTrader() {
   const { traders } = useSelector((state) => state.traders);
+  const [search, setSearch] = useState("")
   const dispatch = useDispatch();
 
   const unArchive = (ids) => {
@@ -23,7 +24,7 @@ export default function ArchivedTrader() {
           <span>
             <h4 style={{ color: "red" }}>Archived Traders</h4>
           </span>
-          <form className="d-flex" role="search">
+          <form className="d-flex" role="search" onChange={(e) => setSearch(e.target.value)}>
             <input
               className="form-control me-2"
               type="search"
@@ -43,9 +44,13 @@ export default function ArchivedTrader() {
           </tr>
 
           {traders.length &&
-            traders.map((item) => {
+            traders.filter((item) => {
+              return search.toLowerCase() === '' ? item : item.traderName.toLowerCase().includes (search);
+
+            })
+            .map((item) => {
               if (item.isArchive === 1) {
-                return (
+                   return (
                   <tr>
                     <td>{item.traderName}</td>
                     <td>{item.traderCategory}</td>

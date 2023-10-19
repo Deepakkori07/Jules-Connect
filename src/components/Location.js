@@ -1,94 +1,43 @@
-import React, { useState, useEffect } from "react";
-import NavBar from "./NavBar";
-import { addUnits } from "../Reducers/UnitSlice";
-import { updateUnits } from "../Reducers/UnitSlice";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { archiveUnits } from "../Reducers/UnitSlice";
-import { useDispatch } from "react-redux";
-import moment from "moment";
-import Modal from "react-modal";
+import React,{useState} from 'react'
+import NavBar from './NavBar'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
+import { useDispatch } from 'react-redux'
+import { addLocation } from '../Reducers/LocationSlice'
+import { archiveLocation } from '../Reducers/LocationSlice'
+import moment from 'moment'
 
-export default function Unit() {
-  const [unit, setUnit] = useState("");
-  const [currUnit, setcurrUnit] = useState("");
-  const [unitDate, setunitDate] = useState("");
-  const [updateId, setUpdateId] = useState("");
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const { units } = useSelector((state) => state.units);
-  const dispatch = useDispatch();
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
+export default function Location() {
+    const {location} = useSelector((state) => state.location)
+    const [loc, setLoc] = useState("");
+    const [locationDate, setlocationDate] = useState("");
+    const dispatch = useDispatch();
 
-  function openModal() {
-    setIsOpen(true);
-  }
-  function closeModal() {
-    setIsOpen(false);
-  }
-  const addUnitHandle = (e) => {
-    e.preventDefault();
-    let obj = {
-      unit: unit,
-      unitDate: moment().format("DD/MM/YYYY"),
-      isArchive: 0,
+    const addUnitHandle = (e) => {
+        e.preventDefault();
+        let obj = {
+            loc: loc,
+            locationDate: moment().format("DD/MM/YYYY"),
+            isArchive:0,
+        };
+        dispatch(addLocation(obj));
+        setLoc("");
+        setlocationDate("");
     };
 
-    dispatch(addUnits(obj));
-    setUnit("");
-    setunitDate("");
-  };
-
-  const updateArchive = (ids) => {
-    let obj = {
-      isArchive: 1,
-      id: ids,
+    const updateArchive = (ids) => {
+        let obj = {
+            isArchive: 1,
+            id: ids,
+        };
+        dispatch(archiveLocation(obj));
     };
-    dispatch(archiveUnits(obj));
-  };
-
-  const setCurrUnitData = (ids) => {
-    let unitID =
-      units &&
-      units.find((item) => {
-        return item.id==ids
-      });
-    console.log("unitID==",unitID);
-    console.log("unitID==",units);
-    console.log("unitID==",unitID.unit);
-    // if(unitID!=undefined)
-    setcurrUnit(unitID.unit);
-  };
-
-  useEffect(() => {
-    if(updateId)
-    setCurrUnitData(updateId);
-  }, [updateId]);
-
-  const updateUnit = () => {
-    let obj = {
-      unit: currUnit,
-      id:updateId,
-      unitDate: moment().format("DD/MM/YYYY"),
-      isArchive: 0,
-    };
-    dispatch(updateUnits(obj));
-    console.log("rtyuio");
-  };
   return (
     <div>
-      <NavBar />
-      <nav className="navbar bg-body-tertiary">
+        <NavBar/>
+        <nav className="navbar bg-body-tertiary">
         <div className="container-fluid">
           <span>
-            <h4 style={{ color: "red" }}>All Units</h4>
+            <h4 style={{ color: "red" }}>All location</h4>
           </span>
           <div>
             <svg
@@ -107,7 +56,7 @@ export default function Unit() {
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
-              Add Units +
+              Add location +
             </button>
             <div
               class="modal fade"
@@ -120,7 +69,7 @@ export default function Unit() {
                 <div class="modal-content">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                      Add Unit
+                      Add Location
                     </h1>
                     <button
                       type="button"
@@ -132,8 +81,8 @@ export default function Unit() {
                   <div class="modal-body">
                     <input
                       type="text"
-                      value={unit}
-                      onChange={(e) => setUnit(e.target.value)}
+                      value={loc}
+                      onChange={(e) => setLoc(e.target.value)}
                     />
                   </div>
                   <div class="modal-footer">
@@ -155,21 +104,55 @@ export default function Unit() {
                   </div>
                 </div>
               </div>
-              </div>
 
-              <Modal isOpen={modalIsOpen}  style={customStyles}>
-                <div>Update Unit</div>
-                <form>
-                  <input
-                    type="text"
-                    value={currUnit}
-                    onChange={(e) => setcurrUnit(e.target.value)}
-                  />
-                </form>
-                <button onClick={closeModal}>close</button>
-                <button onClick={updateUnit}>Update</button>
-              </Modal>
-        
+              <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        Update Unit
+                      </h1>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <input
+                        type="text"
+                        // value={currUnit}
+                        // onChange={(e) => setcurrUnit(e.target.value)}
+                      />
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        
+                        data-bs-dismiss="modal"
+                      >
+                        Update
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
@@ -181,21 +164,16 @@ export default function Unit() {
             <th></th>
           </tr>
 
-          {units &&
-            units.map((item) => {
+          {location &&
+            location.map((item) => {
               if (item.isArchive === 0) {
                 return (
                   <tr>
-                    <td>{item.unit}</td>
-                    <td>{item.unitDate}</td>
+                    <td>{item.loc}</td>
+                    <td>{item.locationDate}</td>
                     <td>
                       <span className="t1">
-                        {/* exampleModal1 */}
-                        <span
-                         onClick={() => {
-                          setUpdateId(item.id);
-                          setIsOpen(true);
-                         }}>
+                        <span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -203,6 +181,7 @@ export default function Unit() {
                             fill="currentColor"
                             class="bi bi-pencil-square"
                             viewBox="0 0 16 16"
+                            data-bs-dismiss="modal"
                             aria-label="Close"
                           >
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -240,5 +219,5 @@ export default function Unit() {
         </table>
       </div>
     </div>
-  );
+  )
 }

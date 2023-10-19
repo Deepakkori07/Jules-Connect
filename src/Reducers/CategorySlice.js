@@ -4,7 +4,6 @@ const initialState={
     categories: [],
 
 };
-
 export const CategorySlice = createSlice({
     name:'category',
     initialState,

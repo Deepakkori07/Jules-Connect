@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
+  const [color, setColor] = useState('green')
   const navigate = useNavigate();
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <span className="navbar-brand">Materialy</span>
+          <span className="navbar-brand" style={{color:color}} onClick={()=>{setColor('#fc7e17')}}><b>Jules Connect</b></span>
           <button
             className="navbar-toggler"
             type="button"
@@ -20,7 +21,13 @@ export default function NavBar() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+                <span className="nav-link" role="button" onClick={() => navigate("/")}>
+                  Home
+                </span>
+              </li>
               <li className="nav-item dropdown">
                 <span
                   className="nav-link dropdown-toggle"
@@ -102,12 +109,12 @@ export default function NavBar() {
                 </span>
               </li>
               <li className="nav-item">
-                <span className="nav-link" onClick={() => navigate("/Payment")}>
+                <span className="nav-link" role="button" onClick={() => navigate("/Payment")}>
                   Payments
                 </span>
               </li>
               <li className="nav-item">
-                <span className="nav-link" onClick={() => navigate("/Traders")}>
+                <span className="nav-link" role="button" onClick={() => navigate("/Traders")}>
                   Data
                 </span>
               </li>
@@ -131,7 +138,7 @@ export default function NavBar() {
                     <li>
                       <span
                         className="dropdown-item"
-                        onClick={() => navigate("/ArchivedUnit")}
+                        onClick={() => navigate("/ArchiveUnit")}
                       >
                         Archived Unit
                       </span>
@@ -139,7 +146,7 @@ export default function NavBar() {
                     <li>
                       <span
                         className="dropdown-item"
-                        onClick={() => navigate("/AllOrganisation")}
+                        onClick={() => navigate("/Currency")}
                       >
                         Currency
                       </span>
@@ -147,7 +154,7 @@ export default function NavBar() {
                     <li>
                       <span
                         className="dropdown-item"
-                        onClick={() => navigate("/AllOrganisation")}
+                        onClick={() => navigate("/ArchivedCurrency")}
                       >
                         Archived Currency
                       </span>
@@ -155,7 +162,7 @@ export default function NavBar() {
                     <li>
                       <span
                         className="dropdown-item"
-                        onClick={() => navigate("/AllOrganisation")}
+                        onClick={() => navigate("/IncoTerm")}
                       >
                         Inco term
                       </span>
@@ -163,7 +170,7 @@ export default function NavBar() {
                     <li>
                       <span
                         className="dropdown-item"
-                        onClick={() => navigate("/AllOrganisation")}
+                        onClick={() => navigate("/ArchivedIncoTerm")}
                       >
                         Archived Inco term
                       </span>
@@ -171,7 +178,7 @@ export default function NavBar() {
                     <li>
                       <span
                         className="dropdown-item"
-                        onClick={() => navigate("/AllOrganisation")}
+                        onClick={() => navigate("/Location")}
                       >
                         Location
                       </span>
@@ -179,7 +186,7 @@ export default function NavBar() {
                     <li>
                       <span
                         className="dropdown-item"
-                        onClick={() => navigate("/ViewMaterial")}
+                        onClick={() => navigate("/ArchivedLocation")}
                       >
                         Archived Location
                       </span>
@@ -216,6 +223,7 @@ export default function NavBar() {
                 <li>
                   <span
                     className="dropdown-item"
+                    role="button"
                     onClick={() => navigate("/SubAdminProfile")}
                   >
                     Admin Profile
@@ -224,6 +232,7 @@ export default function NavBar() {
                 <li>
                   <span
                     className="dropdown-item"
+                    role="button"
                     onClick={() => navigate("/AddSubAdminProfile")}
                   >
                     Add Sub-Admin
@@ -232,13 +241,14 @@ export default function NavBar() {
                 <li>
                   <span
                     className="dropdown-item"
+                    role="button"
                     onClick={() => navigate("/SubscriptionPlan")}
                   >
                     Subscription Plan
                   </span>
                 </li>
                 <li>
-                  <span className="dropdown-item">Sign Out</span>
+                  <span className="dropdown-item" role="button">Sign Out</span>
                 </li>
               </ul>
             </span>

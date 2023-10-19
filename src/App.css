@@ -27,6 +27,14 @@
 .App-link {
   color: #61dafb;
 }
+.banner {
+  display: flex;
+  width: 97%;
+  padding: 20px;
+  margin: 20px;
+  background-color: #d7d7d7;
+  justify-content: space-between;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -61,16 +69,29 @@
   display: flex;
   justify-content: space-evenly;
 }
+.nav{
+  display: flex;
+  justify-content: space-around;
+ 
+}
 table{
   width: 100%;
   
 }
 .tableHead{
-  background-color: red;
+  background-color: #fc7e17;
   justify-content: space-around;
   color: white;
   height: 50px;
 } 
+
+.bg-body-tertiary { background-color: #d4d4d4 !important;
+border-bottom: 2px solid white;}
+
+.container-custom{
+  max-width: 600px; width: 100%; margin: 0 auto; top: 50%; left: 50%; transform: translate(-50%, -50%); position: absolute;border: 1px solid rgb(156, 117, 117);
+  
+}
 
 /* card css */
 .wrapper{width: 1140px;max-width: 100%;margin: 0 auto;}
@@ -85,4 +106,23 @@ table{
   .card-detail .year, .card-detail .month span{background-color: #898787b0; border-radius: 5px; padding: 2px 5px;}
   .carddata .data{display: flex;width: 100%;align-items: center;}
   .carddata .data .circle{width: 80px;height: 80px;border: 5px solid #fff;border-radius: 100%;padding: 10px;font-size: 30px;display: flex;justify-content: center;
+  align-items: center;margin-right: 20px;}
+
+  
+  .carddata1{width: 100%;margin: 15px;padding: 10px;background: linear-gradient(90deg, rgba(248,163,239,1) 0%, rgba(155,46,144,1) 100%);
+    border-radius: 20px;}
+    .carddata1 .data{display: flex;width: 100%;align-items: center;}
+  .carddata1 .data .circle{width: 80px;height: 80px;border: 5px solid #fff;border-radius: 100%;padding: 10px;font-size: 30px;display: flex;justify-content: center;
+  align-items: center;margin-right: 20px;}
+
+    .carddata2{width: 100%;margin: 15px;padding: 10px;background: linear-gradient(90deg, rgba(255,163,87,1) 50%, rgba(255,115,0,1) 100%);
+      border-radius: 20px;}
+      .carddata2 .data{display: flex;width: 100%;align-items: center;}
+  .carddata2 .data .circle{width: 80px;height: 80px;border: 5px solid #fff;border-radius: 100%;padding: 10px;font-size: 30px;display: flex;justify-content: center;
+  align-items: center;margin-right: 20px;}
+
+      .carddata3{width: 100%;margin: 15px;padding: 10px;background: linear-gradient(0deg, rgba(45,252,253,1) 0%, rgba(34,193,195,1) 100%);
+        border-radius: 20px;}
+        .carddata3 .data{display: flex;width: 100%;align-items: center;}
+  .carddata3 .data .circle{width: 80px;height: 80px;border: 5px solid #fff;border-radius: 100%;padding: 10px;font-size: 30px;display: flex;justify-content: center;
   align-items: center;margin-right: 20px;}

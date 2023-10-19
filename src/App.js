@@ -19,6 +19,13 @@ import ArchivedMaterials from "./components/ArchivedMaterials";
 import ArchivedCategory from "./components/ArchivedCategory";
 import UpdateCategory from "./components/UpdateCategory";
 import ArchivedSubAdmin from "./components/ArchivedSubAdmin";
+import ArchiveUnit from "./components/ArchiveUnit";
+import Currency from "./components/Currency";
+import ArchivedCurrency from "./components/ArchivedCurrency";
+import IncoTerm from "./components/IncoTerm";
+import ArchivedIncoTerm from "./components/ArchivedIncoTerm";
+import Location from "./components/Location";
+import ArchivedLocation from "./components/ArchivedLocation";
 
 function App() {
   return (
@@ -42,6 +49,14 @@ function App() {
       <Route path="/ArchivedCategory" element={<ArchivedCategory/>} />
       <Route path="/UpdateCategory/:id" element={<UpdateCategory/>} />
       <Route path="/ArchivedSubAdmin" element={<ArchivedSubAdmin/>} />
+      <Route path="/ArchiveUnit" element={<ArchiveUnit/>} />
+      <Route path="/Currency" element={<Currency/>} />
+      <Route path="/ArchivedCurrency" element={<ArchivedCurrency/>} />
+      <Route path="/IncoTerm" element={<IncoTerm/>} />
+      <Route path="/ArchivedIncoTerm" element={<ArchivedIncoTerm/>} />
+      <Route path="/Location" element={<Location/>} />
+      <Route path="/ArchivedLocation" element={<ArchivedLocation/>} />
+      
     </Routes>
   );
 }

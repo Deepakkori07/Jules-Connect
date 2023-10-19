@@ -4,6 +4,10 @@ import  addMaterial  from "./Reducers/MaterialSlice";
 import  addTrader  from "./Reducers/TraderSlice";
 import  addCategory  from "./Reducers/CategorySlice";
 import  addSubAdmin  from "./Reducers/SubAdminSlice";
+import  addUnits  from "./Reducers/UnitSlice";
+import  addCurrency  from "./Reducers/CurrencySlice";
+import  addIncoTerm  from "./Reducers/IncoTermSlice";
+import  addLocation  from "./Reducers/LocationSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
@@ -21,6 +25,10 @@ const reducer = combineReducers({
     traders: addTrader,
     categories: addCategory,
     subAdmin: addSubAdmin,
+    units: addUnits,
+    currency: addCurrency,
+    incoTerm: addIncoTerm,
+    location:addLocation,
 });
 
 const persistedReducer = persistReducer (persistConfig, reducer);

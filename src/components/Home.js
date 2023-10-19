@@ -8,13 +8,13 @@ export default function Home() {
   return (
     <div>
       <NavBar />
-      {organisations.length &&
+      {/* {organisations.length &&
         organisations.map((item) => {
-          return (
+          return ( */}
             <div className="wrapper">
               <div className="row">
                 <div className="col30">
-                  <div className="carddata">
+                  <div className="carddata1">
                     <ul className="card-detail">
                       <li>
                         <select className="year">
@@ -40,8 +40,8 @@ export default function Home() {
                       </li>
                     </ul>
                     <div className="data">
-                      <div className="circle">33</div>
-                      <div className="title">Total assiged</div>
+                      <div className="circle">22</div>
+                      <div className="title">Total Assiged Organisation</div>
                     </div>
                   </div>
                 </div>
@@ -72,13 +72,13 @@ export default function Home() {
                       </li>
                     </ul>
                     <div className="data">
-                      <div className="circle">33</div>
-                      <div className="title">Total assiged</div>
+                      <div className="circle">34</div>
+                      <div className="title">Total Assigned Traders</div>
                     </div>
                   </div>
                 </div>
                 <div className="col30">
-                  <div className="carddata">
+                  <div className="carddata3">
                     <ul className="card-detail">
                       <li>
                         <select className="year">
@@ -104,15 +104,15 @@ export default function Home() {
                       </li>
                     </ul>
                     <div className="data">
-                      <div className="circle">{item.numberOfTraders}</div>
-                      <div className="title">Total assiged</div>
+                      <div className="circle">20</div>
+                      <div className="title">Total Assigned Categories</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          );
-        })}
+          {/* );
+        })} */}
     </div>
   );
 }
