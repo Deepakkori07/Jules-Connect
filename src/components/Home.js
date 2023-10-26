@@ -1,10 +1,18 @@
-import React from "react";
+import React,{useEffect} from "react";
 import NavBar from "./NavBar";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const { organisations } = useSelector((state) => state.organisations);
   console.log(organisations);
+  const navigate = useNavigate();
+  useEffect(() => {
+    let adminEmail=sessionStorage.getItem('adminEmail');
+    if(adminEmail === '' || adminEmail === null){
+      navigate("/");
+    }
+  },[]);
   return (
     <div>
       <NavBar />
@@ -16,29 +24,32 @@ export default function Home() {
                 <div className="col30">
                   <div className="carddata1">
                     <ul className="card-detail">
-                      <li>
+                    <li>
                         <select className="year">
+                          <option> year</option>
                           <option> 2022</option>
                           <option> 2023</option>
                         </select>
                       </li>
-
-                      <li className="month">
-                        <span>march</span>
-                      </li>
-                      <li className="weekly">
-                        weekly
-                        <p>55</p>
-                      </li>
-                      <li className="montly">
-                        montly
-                        <p>55</p>
-                      </li>
-                      <li className="yearly">
-                        yearly
-                        <p>55</p>
+                      <li>
+                        <select className="year">
+                        <option> month</option>
+                          <option> Jan</option>
+                          <option> Feb</option>
+                          <option>Mar</option>
+                          <option>Apr</option>
+                          <option>May</option>
+                          <option>Jun</option>
+                          <option>Jul</option>
+                          <option>Aug</option>
+                          <option>Sep</option>
+                          <option>Oct</option>
+                          <option>Nov</option>
+                          <option>Dec</option>
+                        </select>
                       </li>
                     </ul>
+                    <hr></hr>
                     <div className="data">
                       <div className="circle">22</div>
                       <div className="title">Total Assiged Organisation</div>
@@ -48,29 +59,32 @@ export default function Home() {
                 <div className="col30">
                   <div className="carddata">
                     <ul className="card-detail">
-                      <li>
+                    <li>
                         <select className="year">
+                          <option> year</option>
                           <option> 2022</option>
                           <option> 2023</option>
                         </select>
                       </li>
-
-                      <li className="month">
-                        <span>march</span>
-                      </li>
-                      <li className="weekly">
-                        weekly
-                        <p>55</p>
-                      </li>
-                      <li className="montly">
-                        montly
-                        <p>55</p>
-                      </li>
-                      <li className="yearly">
-                        yearly
-                        <p>55</p>
+                      <li>
+                        <select className="year">
+                        <option> month</option>
+                          <option> Jan</option>
+                          <option> Feb</option>
+                          <option>Mar</option>
+                          <option>Apr</option>
+                          <option>May</option>
+                          <option>Jun</option>
+                          <option>Jul</option>
+                          <option>Aug</option>
+                          <option>Sep</option>
+                          <option>Oct</option>
+                          <option>Nov</option>
+                          <option>Dec</option>
+                        </select>
                       </li>
                     </ul>
+                    <hr></hr>
                     <div className="data">
                       <div className="circle">34</div>
                       <div className="title">Total Assigned Traders</div>
@@ -80,29 +94,32 @@ export default function Home() {
                 <div className="col30">
                   <div className="carddata3">
                     <ul className="card-detail">
-                      <li>
+                    <li>
                         <select className="year">
+                          <option> year</option>
                           <option> 2022</option>
                           <option> 2023</option>
                         </select>
                       </li>
-
-                      <li className="month">
-                        <span>march</span>
-                      </li>
-                      <li className="weekly">
-                        weekly
-                        <p>55</p>
-                      </li>
-                      <li className="montly">
-                        montly
-                        <p>55</p>
-                      </li>
-                      <li className="yearly">
-                        yearly
-                        <p>55</p>
+                      <li>
+                        <select className="year">
+                        <option> month</option>
+                          <option> Jan</option>
+                          <option> Feb</option>
+                          <option>Mar</option>
+                          <option>Apr</option>
+                          <option>May</option>
+                          <option>Jun</option>
+                          <option>Jul</option>
+                          <option>Aug</option>
+                          <option>Sep</option>
+                          <option>Oct</option>
+                          <option>Nov</option>
+                          <option>Dec</option>
+                        </select>
                       </li>
                     </ul>
+                    <hr></hr>
                     <div className="data">
                       <div className="circle">20</div>
                       <div className="title">Total Assigned Categories</div>

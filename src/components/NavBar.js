@@ -24,7 +24,7 @@ export default function NavBar() {
             
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-                <span className="nav-link" role="button" onClick={() => navigate("/")}>
+                <span className="nav-link" role="button" onClick={() => navigate("/Home")}>
                   Home
                 </span>
               </li>
@@ -248,7 +248,7 @@ export default function NavBar() {
                   </span>
                 </li>
                 <li>
-                  <span className="dropdown-item" role="button">Sign Out</span>
+                  <span className="dropdown-item" role="button" onClick={() => navigate("/")}>Sign Out</span>
                 </li>
               </ul>
             </span>

@@ -17,13 +17,11 @@ export const IncoTermSlice = createSlice({
             )
         },
         archiveIncoTerm: (state, action)=> {
-            console.log("action",action.payload);
             state.incoTerm = state.incoTerm.map((incoTerm) => 
             incoTerm.id === action.payload.id?{...incoTerm,isArchive:1}:{...incoTerm}
             )
         },
         unarchiveIncoTerm: (state, action)=> {
-            console.log("actionunarchive",action.payload);
             state.incoTerm = state.incoTerm.map((incoTerm) => 
             incoTerm.id === action.payload.id?{...incoTerm,isArchive:0}:{...incoTerm}
             )

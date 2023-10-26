@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { updateMaterial } from "../Reducers/MaterialSlice";
 import { useDispatch } from "react-redux";
 import moment from "moment/moment";
 
-
 export default function UpdateMaterial() {
   const { materials } = useSelector((state) => state.materials);
+  const { categories } = useSelector((state) => state.categories);
+  const { units } = useSelector((state) => state.units);
+  const { currency } = useSelector((state) => state.currency);
+  const { incoTerm } = useSelector((state) => state.incoTerm);
+  const { location } = useSelector((state) => state.location);
   const { id } = useParams();
   const [currMaterialName, setCurrMaterialName] = useState("");
   const [currMaterialShotCode, setCurrShotCode] = useState("");
@@ -43,9 +47,9 @@ export default function UpdateMaterial() {
   // console.log(materials);
 
   useEffect(() => {
-      console.log("hiiii");
+    console.log("hiiii");
 
-    console.log("organisation==",id);
+    console.log("organisation==", id);
 
     setCurrMaterialData(id);
   }, [id]);
@@ -62,11 +66,11 @@ export default function UpdateMaterial() {
       materialLocation: currMaterialLocation,
       materialBasicName: currMaterialBasicName,
       materialNotes: currMaterialNotes,
-      materialDate:moment().format('DD/MM/YYYY'),
+      materialDate: moment().format("DD/MM/YYYY"),
+      isArchive: 0,
       id,
-      
     };
-    
+
     dispatch(updateMaterial(obj));
     navigate("/ViewMaterial");
   };
@@ -75,95 +79,171 @@ export default function UpdateMaterial() {
     <div>
       <NavBar />
       <form key={id}>
-        <div>
-          <label htmlFor="materialName">Material Name</label><br></br>
-          <input
-            type="text"
-            value={currMaterialName}
-            onChange={(e) => setCurrMaterialName(e.target.value)}
-          />
-          <label htmlFor="Shot Code">Shot Code</label><br></br>
-          <input
-            type="text"
-            value={currMaterialNotes}
-            onChange={(e) => setCurrShotCode(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="materialCategory">Category Name</label>
-          <input
-            type="text"
-            value={currMaterialCategory}
-            onChange={(e) => setCurrMaterialCategory(e.target.value)}
-          />
-          <span>
-            <label htmlFor="Currency">Currency</label>
-            <select
-              name="Currency"
-              value={currMaterialCurrency}
-              onChange={(e) => setCurrMaterialCurrency(e.target.value)}
+        <div className="addMaterial">
+          <h1 style={{ color: "#fc7e17", textAlign: "center" }}>
+            UPDATE MATERIAL
+          </h1>
+          <hr></hr>
+          <form className="row g-3">
+            <div class="col-6">
+              <label for="exampleInputEmail1" class="form-label">
+                Material Name
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                value={currMaterialName}
+                onChange={(e) => setCurrMaterialName(e.target.value)}
+              />
+            </div>
+            <div class="col-6">
+              <label for="exampleInputPassword1" class="form-label">
+                Shot Code
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputPassword1"
+                value={currMaterialShotCode}
+                onChange={(e) => setCurrShotCode(e.target.value)}
+              />
+            </div>
+            <div class="col-6">
+              <label for="exampleInputPassword1" class="form-label">
+                Category
+              </label>
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                value={currMaterialCategory}
+                onChange={(e) => setCurrMaterialCategory(e.target.value)}
+              >
+                {categories.map((item) => {
+                  return (
+                    <option
+                      key={item.materialCategory}
+                      value={item.materialCategory}
+                    >
+                      {item.materialCategory}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div class="col-6">
+              <div className="row">
+              <div className="col-4">
+                <label for="exampleInputPassword1" class="form-label">
+                  Currency
+                </label>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  value={currMaterialCurrency}
+                  onChange={(e) => setCurrMaterialCurrency(e.target.value)}
+                >
+                  {currency.map((item) => {
+                    return (
+                      <option key={item.curr} value={item.curr}>
+                        {item.curr}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className="col-4">
+                <label for="exampleInputPassword1" class="form-label">
+                  Unit
+                </label>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  value={currMaterialUnit}
+                  onChange={(e) => setCurrMaterialUnit(e.target.value)}
+                >
+                  {units.map((item) => {
+                    return (
+                      <option key={item.unit} value={item.unit}>
+                        {item.unit}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className="col-4">
+                <label for="exampleInputPassword1" class="form-label">
+                  Inco Term
+                </label>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  value={currMaterialIncoTeam}
+                  onChange={(e) => setCurrMaterialIncoTeam(e.target.value)}
+                >
+                  {incoTerm.map((item) => {
+                    return (
+                      <option key={item.incoTerms} value={item.incoTerms}>
+                        {item.incoTerms}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <label for="exampleInputPassword1" class="form-label">
+                Location
+              </label>
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                value={currMaterialLocation}
+                onChange={(e) => setCurrMaterialLocation(e.target.value)}
+              >
+                {location.map((item) => {
+                  return (
+                    <option key={item.loc} value={item.loc}>
+                      {item.loc}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="exampleInputPassword1" class="form-label">
+                Basis Name
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputPassword1"
+                value={currMaterialBasicName}
+                onChange={(e) => setCurrMaterialBasicName(e.target.value)}
+              />
+            </div>
+            <div class="col-12">
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputPassword1"
+                placeholder="notes/brief"
+                value={currMaterialNotes}
+                onChange={(e) => setCurrMaterialNotes(e.target.value)}
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-success"
+              onClick={updateMaterialData}
             >
-              <option value="INR">INR</option>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="JPY">JPY</option>
-            </select>
-          </span>
-          <span>
-            <label htmlFor="Unit">Unit</label>
-            <select
-              name="Unit"
-              value={currMaterialUnit}
-              onChange={(e) => setCurrMaterialUnit(e.target.value)}
-            >
-              <option value="mt">mt</option>
-              <option value="kg">kg</option>
-              <option value="pounds">pounds</option>
-              <option value="tons">tons</option>
-            </select>
-          </span>
-          <span>
-            <label htmlFor="Inco term">Inco term</label>
-            <select
-              name="Inco term"
-              value={currMaterialIncoTeam}
-              onChange={(e) => setCurrMaterialIncoTeam(e.target.value)}
-            >
-              <option value="EXW">EXW</option>
-              <option value="FCA">FCA</option>
-              <option value="CPT">CPT</option>
-              <option value="CIP">CIP</option>
-              <option value="DAT">DAT</option>
-              <option value="DAP">DAP</option>
-              <option value="DDP">DDP</option>
-            </select>
-          </span>
+              Update Material+
+            </button>
+          </form>
         </div>
-        <div>
-          <label htmlFor="Location">Location</label>
-          <select
-            name="Location"
-            value={currMaterialLocation}
-            onChange={(e) => setCurrMaterialLocation(e.target.value)}
-          >
-            <option value="India">India</option>
-            <option value="USA">USA</option>
-            <option value="Japan">Japan</option>
-            <option value="Dubai">Dubai</option>
-          </select>
-          <label htmlFor="Basis Name">Basis Name</label>
-          <input
-            type="text"
-            value={currMaterialBasicName}
-            onChange={(e) => setCurrMaterialBasicName(e.target.value)}
-          />
-        </div>
-        <div>
-          <input type="textfield" placeholder="Notes/TradesBrief" />
-        </div>
-        <button className="btn btn-danger" onClick={updateMaterialData}>
-          Update Material
-        </button>
       </form>
     </div>
   );

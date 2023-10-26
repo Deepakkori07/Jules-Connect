@@ -36,7 +36,7 @@ import { archiveTrader } from '../Reducers/TraderSlice';
             <div className='col-3 px-3'>
           <form className=" w-auto" role="search" onChange={(e) => setSearch(e.target.value)}>
             <input
-              className="form-control "
+              className="form-control me-2 "
               type="search"
               placeholder="Search"
               aria-label="Search"

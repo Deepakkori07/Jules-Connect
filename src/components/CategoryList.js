@@ -10,6 +10,8 @@ import moment from "moment/moment";
 export default function CategoryList() {
   const [materialCategory, setMaterialCategory] = useState("");
   const [categoryDate, setCategoryDate] = useState("");
+  const [search, setSearch] = useState("");
+  console.log(search);
   const {categories} = useSelector((state) => state.categories);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,11 +46,13 @@ export default function CategoryList() {
     <div>
       <NavBar />
       <nav className="navbar bg-body-tertiary">
-        <div className="container-fluid">
-          <span>
-            <h4 style={{ color: "red" }}>All materialCategory</h4>
+      <div className="container-fluid row">
+          <span className="col-4">
+            <h4 style={{ color: "red" }}>ADD CATEGORIES</h4>
           </span>
-          <form className="d-flex" role="search">
+          <div className='col-8 d-flex' >
+            <div className='col-3 px-3'>
+          <form className="w-auto" role="search" onChange={(e) => setSearch(e.target.value)}>
             <input
               className="form-control me-2"
               type="search"
@@ -56,29 +60,33 @@ export default function CategoryList() {
               aria-label="Search"
             />
           </form>
-          <div>
+          </div>
             <button
               type="button"
-              class="btn btn-danger"
+              class="btn btn-danger col-3"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
               Add materialCategory +
             </button>
             <button
-              className="btn btn-primary"
+              className="btn btn-primary mx-3 col-3"
               type="button"
               // onClick={() => Navigate("/AddOrganisation")}
             >
               Upload
             </button>
             <button
-              className="btn btn-info"
+              className="btn btn-info col-3"
               type="button"
               // onClick={() => Navigate("/AddOrganisation")}
             >
               Sample SVG
             </button>
+          </div>
+          </div>
+      </nav>
+
             <div
               class="modal fade"
               id="exampleModal"
@@ -89,8 +97,8 @@ export default function CategoryList() {
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">
-                      Add materialCategory
+                    <h1 class="modal-title fs-5" id="exampleModalLabel" style={{color:'#fc7e17'}}>
+                      ADD MATERIAL CATEGORY
                     </h1>
                     <button
                       type="button"
@@ -99,32 +107,32 @@ export default function CategoryList() {
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div class="modal-body">
+                  <div class="modal-body" style={{width:'100%'}}>
                     <input type="text" value={materialCategory} onChange={(e) => setMaterialCategory(e.target.value)}/>
                   </div>
                   <div class="modal-footer">
                     <button
                       type="button"
-                      class="btn btn-secondary"
+                      class="btn btn-danger"
                       data-bs-dismiss="modal"
-                    >
+                      >
                       Close
                     </button>
                     <button
                       type="button"
-                      class="btn btn-primary"
+                      class="btn btn-success"
                       onClick={addCategoryHandle}
                       data-bs-dismiss="modal"
-                    >
+                      >
                       Add
                     </button>
+                    
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+        
         </div>
-      </nav>
+      
       <div>
         <table>
           <tr className="tableHead">
@@ -134,7 +142,10 @@ export default function CategoryList() {
           </tr>
 
           {categories.length &&
-            categories.map((item) => {
+            categories.filter((item) => {
+              return search.toLowerCase() === '' ? item : item.materialCategory.toLowerCase().includes(search);
+            })
+            .map ((item) => {
               if(item.isArchive === 0){
               return (
                 <tr>

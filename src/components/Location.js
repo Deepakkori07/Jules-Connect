@@ -1,16 +1,36 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import NavBar from './NavBar'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { useDispatch } from 'react-redux'
 import { addLocation } from '../Reducers/LocationSlice'
 import { archiveLocation } from '../Reducers/LocationSlice'
+import { updateLocation } from '../Reducers/LocationSlice'
 import moment from 'moment'
+import Modal from 'react-modal';
 
 export default function Location() {
     const {location} = useSelector((state) => state.location)
     const [loc, setLoc] = useState("");
+    const [currLocation, setcurrLocation] = useState("");
     const [locationDate, setlocationDate] = useState("");
+    const [updateId, setupdateId] = useState("");
+    const [modalIsOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch();
+
+    const customStyles = {
+      content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+      },
+    };
+
+    function closeModal() {
+      setIsOpen(false);
+    }
 
     const addUnitHandle = (e) => {
         e.preventDefault();
@@ -30,6 +50,30 @@ export default function Location() {
             id: ids,
         };
         dispatch(archiveLocation(obj));
+    };
+
+    const setCurrLocationData = (ids) => {
+      let LocationID =
+        location &&
+        location.find((item) => {
+          return item.id===ids
+        });
+      setcurrLocation(LocationID.loc);
+    };
+  
+    useEffect(() => {
+      if(updateId)
+      setCurrLocationData(updateId);
+    }, [updateId]);
+  
+    const updateLoc = () => {
+      let obj = {
+        loc: currLocation,
+        id:updateId,
+        locationDate: moment().format("DD/MM/YYYY"),
+        isArchive: 0,
+      };
+      dispatch(updateLocation(obj));
     };
   return (
     <div>
@@ -105,53 +149,18 @@ export default function Location() {
                 </div>
               </div>
 
-              <div
-                class="modal fade"
-                id="exampleModal"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-              >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">
-                        Update Unit
-                      </h1>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div class="modal-body">
-                      <input
-                        type="text"
-                        // value={currUnit}
-                        // onChange={(e) => setcurrUnit(e.target.value)}
-                      />
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-primary"
-                        
-                        data-bs-dismiss="modal"
-                      >
-                        Update
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Modal isOpen={modalIsOpen}  style={customStyles}>
+                <div>Update Location</div>
+                <form>
+                  <input
+                    type="text"
+                    value={currLocation}
+                    onChange={(e) => setcurrLocation(e.target.value)}
+                  />
+                </form>
+                <button onClick={closeModal}>close</button>
+                <button onClick={updateLoc}>Update</button>
+              </Modal>
             </div>
           </div>
         </div>
@@ -173,7 +182,11 @@ export default function Location() {
                     <td>{item.locationDate}</td>
                     <td>
                       <span className="t1">
-                        <span>
+                        <span
+                        onClick={() => {
+                          setupdateId(item.id);
+                          setIsOpen(true);
+                        }}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -181,7 +194,6 @@ export default function Location() {
                             fill="currentColor"
                             class="bi bi-pencil-square"
                             viewBox="0 0 16 16"
-                            data-bs-dismiss="modal"
                             aria-label="Close"
                           >
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />

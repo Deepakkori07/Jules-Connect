@@ -89,10 +89,24 @@ table{
 border-bottom: 2px solid white;}
 
 .container-custom{
-  max-width: 600px; width: 100%; margin: 0 auto; top: 50%; left: 50%; transform: translate(-50%, -50%); position: absolute;border: 1px solid rgb(156, 117, 117);
+  max-width: 600px; width: 100%; margin: 0 auto; top: 50%; left: 50%; transform: translate(-50%, -50%); position: absolute;border: 1px solid #fc7e17;padding: 25px;
+  
+}
+.auth{
+  max-width: 400px; width: 100%; margin: 0 auto; top: 50%; left: 50%; transform: translate(-50%, -50%); position: absolute;border:1px solid #fc7e17;padding: 25px;
+  
+}
+.addMaterial{
+  max-width: 800px; width: 100%; margin: 0 auto; top: 50%; left: 50%; transform: translate(-50%, -50%); position: absolute;border:1px solid #fc7e17;padding: 25px;
   
 }
 
+.eye{
+  width: 330px;height: 55px;background-color: #d7d7d7; border-radius: 24px;display: flex;justify-content: space-between;align-items: center;padding: 15px;
+}
+.eye-custom{
+  width: 100%;height: 100%;background-color: transparent;outline: none;border: hidden;
+}
 /* card css */
 .wrapper{width: 1140px;max-width: 100%;margin: 0 auto;}
 .row{display: flex;width: 100%;justify-content: center;}
@@ -126,3 +140,7 @@ border-bottom: 2px solid white;}
         .carddata3 .data{display: flex;width: 100%;align-items: center;}
   .carddata3 .data .circle{width: 80px;height: 80px;border: 5px solid #fff;border-radius: 100%;padding: 10px;font-size: 30px;display: flex;justify-content: center;
   align-items: center;margin-right: 20px;}
+
+  /* password icon css */
+  .passwrap{position: relative;}
+  .passwrap span{position: absolute;top: 5px;right: 12px;cursor: pointer;;}

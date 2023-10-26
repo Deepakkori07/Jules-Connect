@@ -26,11 +26,14 @@ import IncoTerm from "./components/IncoTerm";
 import ArchivedIncoTerm from "./components/ArchivedIncoTerm";
 import Location from "./components/Location";
 import ArchivedLocation from "./components/ArchivedLocation";
+import Auth from "./components/Auth";
+import Register from "./components/Register";
+import Login from "./components/Login";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home/>} />
+      <Route path="/Home" element={<Home/>} />
       <Route path="/AddSubAdminProfile" element={<AddSubAdminProfile/>} />
       <Route path="/SubscriptionPlan" element={<SubscriptionPlan/>} />
       <Route path="/Payment" element={<Payment/>} />
@@ -56,6 +59,9 @@ function App() {
       <Route path="/ArchivedIncoTerm" element={<ArchivedIncoTerm/>} />
       <Route path="/Location" element={<Location/>} />
       <Route path="/ArchivedLocation" element={<ArchivedLocation/>} />
+      <Route path="/" element={<Auth/>} />
+      <Route path="/Register" element={<Register/>} />
+      <Route path="/Login" element={<Login/>} />
       
     </Routes>
   );

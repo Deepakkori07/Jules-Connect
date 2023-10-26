@@ -9,12 +9,13 @@ import moment from "moment";
 import Modal from "react-modal";
 
 export default function Unit() {
+  const { units } = useSelector((state) => state.units);
   const [unit, setUnit] = useState("");
   const [currUnit, setcurrUnit] = useState("");
   const [unitDate, setunitDate] = useState("");
   const [updateId, setUpdateId] = useState("");
+  const [search, setSearch] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);
-  const { units } = useSelector((state) => state.units);
   const dispatch = useDispatch();
   const customStyles = {
     content: {
@@ -24,12 +25,10 @@ export default function Unit() {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
+      color:'#fc7e17'
     },
   };
 
-  function openModal() {
-    setIsOpen(true);
-  }
   function closeModal() {
     setIsOpen(false);
   }
@@ -45,7 +44,7 @@ export default function Unit() {
     setUnit("");
     setunitDate("");
   };
-
+  
   const updateArchive = (ids) => {
     let obj = {
       isArchive: 1,
@@ -56,59 +55,60 @@ export default function Unit() {
 
   const setCurrUnitData = (ids) => {
     let unitID =
-      units &&
-      units.find((item) => {
-        return item.id==ids
-      });
-    console.log("unitID==",unitID);
-    console.log("unitID==",units);
-    console.log("unitID==",unitID.unit);
-    // if(unitID!=undefined)
+    units &&
+    units.find((item) => {
+      return item.id===ids
+    });
     setcurrUnit(unitID.unit);
   };
 
   useEffect(() => {
     if(updateId)
     setCurrUnitData(updateId);
-  }, [updateId]);
+}, [updateId]);
 
-  const updateUnit = () => {
-    let obj = {
-      unit: currUnit,
-      id:updateId,
-      unitDate: moment().format("DD/MM/YYYY"),
-      isArchive: 0,
-    };
-    dispatch(updateUnits(obj));
-    console.log("rtyuio");
+const updateUnit = () => {
+  setIsOpen(false)
+  let obj = {
+    unit: currUnit,
+    id:updateId,
+    unitDate: moment().format("DD/MM/YYYY"),
+    isArchive: 0,
+    
+  };
+  dispatch(updateUnits(obj));
+
   };
   return (
     <div>
       <NavBar />
       <nav className="navbar bg-body-tertiary">
-        <div className="container-fluid">
-          <span>
+        <div className="container-fluid row">
+          <span className="col-4">
             <h4 style={{ color: "red" }}>All Units</h4>
           </span>
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-search"
-              viewBox="0 0 16 16"
-            >
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-            </svg>
+          <div className='col-8 d-flex' >
+            <div className='col-3 px-3'>
+            <form className="w-auto" role="search" onChange={(e) => setSearch(e.target.value)}>
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+          </form>
+            </div>
             <button
               type="button"
-              class="btn btn-danger"
+              class="btn btn-danger col-3"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
               Add Units +
             </button>
+            </div>
+        </div>
+      </nav>
             <div
               class="modal fade"
               id="exampleModal"
@@ -119,8 +119,8 @@ export default function Unit() {
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">
-                      Add Unit
+                    <h1 class="modal-title fs-5" id="exampleModalLabel" style={{color:'#fc7e17'}}>
+                      ADD UNIT
                     </h1>
                     <button
                       type="button"
@@ -139,14 +139,14 @@ export default function Unit() {
                   <div class="modal-footer">
                     <button
                       type="button"
-                      class="btn btn-secondary"
+                      class="btn btn-danger"
                       data-bs-dismiss="modal"
                     >
                       Close
                     </button>
                     <button
                       type="button"
-                      class="btn btn-primary"
+                      class="btn btn-success"
                       onClick={addUnitHandle}
                       data-bs-dismiss="modal"
                     >
@@ -158,7 +158,7 @@ export default function Unit() {
               </div>
 
               <Modal isOpen={modalIsOpen}  style={customStyles}>
-                <div>Update Unit</div>
+                <div>UPDATE UNIT</div>
                 <form>
                   <input
                     type="text"
@@ -166,13 +166,11 @@ export default function Unit() {
                     onChange={(e) => setcurrUnit(e.target.value)}
                   />
                 </form>
-                <button onClick={closeModal}>close</button>
-                <button onClick={updateUnit}>Update</button>
+                <button className="btn btn-danger" onClick={closeModal}>close</button>
+                <button className="btn btn-success" onClick={updateUnit}>Update</button>
               </Modal>
         
-          </div>
-        </div>
-      </nav>
+          
       <div>
         <table>
           <tr className="tableHead">
@@ -182,7 +180,10 @@ export default function Unit() {
           </tr>
 
           {units &&
-            units.map((item) => {
+            units.filter((item) => {
+              return search.toLowerCase() === '' ? item : item.unit.toLowerCase().includes(search);
+            })
+            .map ((item) => {
               if (item.isArchive === 0) {
                 return (
                   <tr>

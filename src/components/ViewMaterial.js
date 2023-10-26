@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import NavBar from "./NavBar";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 
 export default function ViewMaterial() {
   const { materials } = useSelector((state) => state.materials);
+  const [search, setSearch] = useState("")
   const navigate = useNavigate();
   console.log(materials);
   const dispatch = useDispatch();
@@ -23,11 +24,14 @@ export default function ViewMaterial() {
     <div>
       <NavBar />
       <nav className="navbar bg-body-tertiary">
-        <div className="container-fluid">
-          <span>
+        <div className="container-fluid row">
+          <span className='col-4'>
             <h4 style={{ color: "red" }}>All Materials</h4>
           </span>
-          <form className="d-flex" role="search">
+
+          <div className='col-8 d-flex' >
+            <div className='col-3 px-3'>
+          <form className="w-auto" role="search" onChange={(e) => setSearch(e.target.value)}>
             <input
               className="form-control me-2"
               type="search"
@@ -35,9 +39,10 @@ export default function ViewMaterial() {
               aria-label="Search"
             />
           </form>
-          <div>
+          </div>
+          
             <button
-              className="btn btn-danger"
+              className="btn btn-danger col-3"
               type="button"
               onClick={() => navigate("/AddMaterial")}
             >
@@ -45,14 +50,14 @@ export default function ViewMaterial() {
             </button>
         
             <button
-              className="btn btn-primary"
+              className="btn btn-primary mx-3 col-3"
               type="button"
               // onClick={() => navigate("/AddOrganisation")}
             >
               Upload
             </button>
             <button
-              className="btn btn-info"
+              className="btn btn-info col-3"
               type="button"
               // onClick={() => navigate("/AddOrganisation")}
             >

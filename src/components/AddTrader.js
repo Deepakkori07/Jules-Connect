@@ -51,6 +51,8 @@ export default function AddTrader() {
     <div>
       <NavBar />
       <div className="container-custom">
+      <h1 style={{color:'#fc7e17',textAlign:'center'}}>ADD TRADERS</h1>
+              <hr></hr>
 
       <form class="row g-3">
         <div class="col-6">
@@ -95,8 +97,9 @@ export default function AddTrader() {
         <div class="col-12">
           <button
             type="submit"
-            class="btn btn-primary"
+            class="btn btn-success"
             onClick={addTraderHandle}
+           style={{width:'100%'}}
           >
             Add Trader
           </button>
