@@ -77,7 +77,7 @@ import { archiveTrader } from '../Reducers/TraderSlice';
             <th></th>
           </tr>
 
-          {traders.length && 
+          {traders && 
             traders.filter((item) => {
               return search.toLowerCase() === '' ? item : item.traderName.toLowerCase().includes(search);
             })

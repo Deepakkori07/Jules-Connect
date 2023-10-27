@@ -8,7 +8,7 @@ export default function Home() {
   console.log(organisations);
   const navigate = useNavigate();
   useEffect(() => {
-    let adminEmail=sessionStorage.getItem('adminEmail');
+    let adminEmail=localStorage.getItem('adminEmail');
     if(adminEmail === '' || adminEmail === null){
       navigate("/");
     }

@@ -1,10 +1,11 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
 import {Icon} from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff'
 import {eye} from 'react-icons-kit/feather/eye'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import logo from "../assets/jules.png"
 
 
 export default function Login() {
@@ -29,7 +30,7 @@ export default function Login() {
                 toast("wrong email:");
             } else {
                 if (resp.adminPassword === adminPassword) {
-                    sessionStorage.setItem('adminEmail',adminEmail);
+                    localStorage.setItem('adminEmail',adminEmail);
                     toast("Login Successfull")
                     navigate("/Home");
                 } else {
@@ -65,12 +66,22 @@ export default function Login() {
             setIcon(eyeOff);
             setType('password');
         }
-    }
+    };
+
+    useEffect(() => {
+      let adminEmail=localStorage.getItem('adminEmail');
+      if(adminEmail === '' || adminEmail === null){
+        navigate("/Login");
+      }else{
+        navigate("/Home");
+      }
+    },[]);
     
     return (
         <div>
           <div className="auth">
-              <h1 style={{color:'#fc7e17',textAlign:'center'}}>Jules Connect</h1>
+              <h1 style={{color:'#fc7e17',textAlign:'center'}}>
+              <img src={logo} alt="logo" style={{height:'80px'}}></img>Jules Connect</h1>
               <hr></hr>
             <form className="row g-3">
               <div className="col-md-12">

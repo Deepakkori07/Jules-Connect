@@ -17,7 +17,6 @@ import Unit from "./components/Unit";
 import ArchivedTrader from "./components/ArchivedTrader";
 import ArchivedMaterials from "./components/ArchivedMaterials";
 import ArchivedCategory from "./components/ArchivedCategory";
-import UpdateCategory from "./components/UpdateCategory";
 import ArchivedSubAdmin from "./components/ArchivedSubAdmin";
 import ArchiveUnit from "./components/ArchiveUnit";
 import Currency from "./components/Currency";
@@ -50,7 +49,6 @@ function App() {
       <Route path="/ArchivedTrader" element={<ArchivedTrader/>} />
       <Route path="/ArchivedMaterials" element={<ArchivedMaterials/>} />
       <Route path="/ArchivedCategory" element={<ArchivedCategory/>} />
-      <Route path="/UpdateCategory/:id" element={<UpdateCategory/>} />
       <Route path="/ArchivedSubAdmin" element={<ArchivedSubAdmin/>} />
       <Route path="/ArchiveUnit" element={<ArchiveUnit/>} />
       <Route path="/Currency" element={<Currency/>} />

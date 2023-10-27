@@ -1,66 +1,127 @@
-import React,{useState,useEffect} from 'react'
-import NavBar from './NavBar'
-import { useSelector } from 'react-redux/es/hooks/useSelector'
-import { useParams,useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { updateTrader } from '../Reducers/TraderSlice'
-
+import React, { useState, useEffect } from "react";
+import NavBar from "./NavBar";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateTrader } from "../Reducers/TraderSlice";
+import MultiSelect from "multiselect-react-dropdown";
 
 export default function UpdateTrader() {
-    const {traders} = useSelector((state) => state.traders)
-    const {id} = useParams();
-    const [currTraderName, setCurrTraderName] = useState("")
-    const [currTraderEmail, setCurrTraderEmail] = useState("")
-    const [currTraderPassword, setCurrTraderPassword] = useState("")
-    const [currTraderCategory, setCurrTraderCategory] = useState("")
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const { traders } = useSelector((state) => state.traders);
+  const { categories } = useSelector((state) => state.categories);
+  console.log("categories",categories);
+  const { id } = useParams();
+  const [currTraderName, setCurrTraderName] = useState("");
+  const [currTraderEmail, setCurrTraderEmail] = useState("");
+  const [currTraderPassword, setCurrTraderPassword] = useState("");
+  const [currTraderCategory, setCurrTraderCategory] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const setCurrTraderData = (ids) => {
-        let traderID = traders.find((item) => {
-            return item.id === ids;
-        });
-        setCurrTraderName(traderID.traderName);
-        setCurrTraderEmail(traderID.traderEmail);
-        setCurrTraderPassword(traderID.traderPassword);
-        setCurrTraderCategory(traderID.tradercategory);
+  const setCurrTraderData = (ids) => {
+    let traderID = traders.find((item) => {
+      return item.id === ids;
+    });
+    setCurrTraderName(traderID.traderName);
+    setCurrTraderEmail(traderID.traderEmail);
+    setCurrTraderPassword(traderID.traderPassword);
+    // setCurrTraderCategory
+    setCurrTraderCategory( traderID.traderCategory.map((item)=>{
+        return {materialCategory:item}
+    }))
+    // setCurrTraderCategory(traderID.traderCategory);
+  };
+
+  useEffect(() => {
+    setCurrTraderData(id);
+  }, [id]);
+
+  const updateTraderData = () => {
+    let obj = {
+      traderName: currTraderName,
+      traderEmail: currTraderEmail,
+      traderPassword: currTraderPassword,
+      tradercategory: currTraderCategory,
+      isArchive:0,
+      id,
     };
-
-    useEffect(() => {
-        setCurrTraderData(id);
-    },[id]);
-
-    const updateMaterialData = () => {
-        let obj ={
-            traderName: currTraderName,
-            traderEmail: currTraderEmail,
-            traderPassword: currTraderPassword,
-            tradercategory: currTraderCategory,
-            id,
-        };
-        dispatch(updateTrader(obj));
-        navigate("/MyTraders");
-    };
+    dispatch(updateTrader(obj));
+    navigate("/MyTraders");
+  };
+  const onSelect = (tradercategory, selectedItem) => {
+    console.log("selectedItem", selectedItem);
+    setCurrTraderCategory((prev) => [...prev, selectedItem.tradercategory]);
+  };
   return (
     <div>
-        <NavBar/>
-        <form key={id}>
-        <div>
-            <label htmlFor='traderName'>Trader Name</label>
-            <input type='text' value={currTraderName} onChange={(e) => setCurrTraderName(e.target.value)}/>
-            <label htmlFor='traderEmail'>Trader Email</label>
-            <input type='email' value={currTraderEmail} onChange={(e) => setCurrTraderEmail(e.target.value)}/>
+      <NavBar />
+      <form key={id}>
+        <div className="container-custom">
+          <h1 style={{ color: "#fc7e17", textAlign: "center" }}>
+            UPDATE TRADERS
+          </h1>
+          <hr></hr>
+
+          <form class="row g-3">
+            <div class="col-6">
+              <label for="inputAddress" class="form-label">
+                Trader Name
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputAddress"
+                value={currTraderName}
+                onChange={(e) => setCurrTraderName(e.target.value)}
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="inputEmail4" class="form-label">
+                Trader Email
+              </label>
+              <input
+                type="email"
+                class="form-control"
+                id="inputEmail4"
+                value={currTraderEmail}
+                onChange={(e) => setCurrTraderEmail(e.target.value)}
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">
+                Password
+              </label>
+              <input
+                type="password"
+                class="form-control"
+                id="inputPassword4"
+                value={currTraderPassword}
+                onChange={(e) => setCurrTraderPassword(e.target.value)}
+              />
+            </div>
+            <div class="col-md-6">
+              <label htmlFor="AssignCategory">Assign Category</label>
+              <MultiSelect
+                options={categories}
+                displayValue="materialCategory"
+                onSelect={(a, b) => onSelect(a, b)}
+                selectedValues={currTraderCategory}
+              />
+            </div>
+
+            <div class="col-12">
+              <button
+                type="submit"
+                class="btn btn-success"
+                onClick={updateTraderData}
+                style={{ width: "100%" }}
+              >
+                Add Trader
+              </button>
+            </div>
+          </form>
         </div>
-        <div>
-            <label htmlFor='traderPassword'> Password</label>
-            <input type='password' value={currTraderPassword} onChange={(e) => setCurrTraderPassword(e.target.value)}/>
-            <label htmlFor='AssignCategory'>Assign Category</label>
-            <input type='search' value={currTraderCategory} onChange={(e)=> setCurrTraderCategory(e.target.value)}/>
-        </div>
-        <div>
-           <button className='btn btn-danger' onClick={updateMaterialData}>Add Trader </button>
-        </div>
-        </form>
+      </form>
     </div>
-  )
+  );
 }

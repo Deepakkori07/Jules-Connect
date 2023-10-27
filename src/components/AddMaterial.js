@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import { addMaterial } from "../Reducers/MaterialSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useNavigate } from "react-router-dom";
 import moment from "moment/moment";
 
 export default function AddMaterial() {
@@ -21,6 +22,7 @@ export default function AddMaterial() {
   const { currency } = useSelector((state) => state.currency);
   const { incoTerm } = useSelector((state) => state.incoTerm);
   const { location } = useSelector((state) => state.location);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,6 +57,7 @@ export default function AddMaterial() {
     setmaterialBasicName("");
     setmaterialNotes("");
     setMaterialDate("");
+    navigate("/ViewMaterial");
   };
   return (
     <div>

@@ -14,6 +14,7 @@ export default function Currency() {
   const [curr, setCurrency] = useState("");
   const [currentCurrency, setCurrentCurrency] = useState("");
   const [updateId, setUpdateId] = useState("");
+  const [search, setSearch] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);
   const [currencyDate, setCurrencyDate] = useState("");
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ export default function Currency() {
       currency.find((item) => {
         return item.id===ids
       });
-    setCurrentCurrency(currID.unit);
+    setCurrentCurrency(currID.curr);
   };
 
   useEffect(() => {
@@ -68,39 +69,34 @@ export default function Currency() {
   }, [updateId]);
 
   const updateCurr = () => {
+    setIsOpen(false)
     let obj = {
       curr: currentCurrency,
       id:updateId,
       currencyDate: moment().format("DD/MM/YYYY"),
       isArchive: 0,
     };
-    console.log(obj);
     dispatch(updateCurrency(obj));
   };
   return (
     <div>
       <NavBar />
       <nav className="navbar bg-body-tertiary">
-        <div className="container-fluid">
-          <span>
+        <div className="container-fluid row">
+          <span className="col-4">
             <h4 style={{ color: "red" }}>All Currency</h4>
           </span>
-          <div>
-            <span className="t1">
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-search"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                </svg>
-              </span>
-
-              <span>
+          <div className='col-8 d-flex' >
+            <div className='col-3 px-3'>
+            <form className="w-auto" role="search" onChange={(e) => setSearch(e.target.value)}>
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+          </form>
+            </div>
                 <button
                   type="button"
                   class="btn btn-danger"
@@ -109,8 +105,9 @@ export default function Currency() {
                 >
                   Add Currency +
                 </button>
-              </span>
-            </span>
+                </div>
+        </div>
+      </nav>
             <div
               class="modal fade"
               id="exampleModal"
@@ -120,8 +117,8 @@ export default function Currency() {
             >
               <div class="modal-dialog">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  <div class="modal-header"> 
+                    <h1 class="modal-title fs-5" id="exampleModalLabel" style={{color:'#fc7e17'}}>
                       Add Currency
                     </h1>
                     <button
@@ -141,14 +138,14 @@ export default function Currency() {
                   <div class="modal-footer">
                     <button
                       type="button"
-                      class="btn btn-secondary"
+                      class="btn btn-danger"
                       data-bs-dismiss="modal"
                     >
                       Close
                     </button>
                     <button
                       type="button"
-                      class="btn btn-primary"
+                      class="btn btn-success"
                       onClick={handleCurrency}
                       data-bs-dismiss="modal"
                     >
@@ -157,7 +154,7 @@ export default function Currency() {
                   </div>
                 </div>
               </div>
-
+</div>
               <Modal isOpen={modalIsOpen}  style={customStyles}>
                 <div>Update Unit</div>
                 <form>
@@ -167,14 +164,11 @@ export default function Currency() {
                     onChange={(e) => setCurrentCurrency(e.target.value)}
                   />
                 </form>
-                <button onClick={closeModal}>close</button>
-                <button onClick={updateCurr}>Update</button>
+                <button className="btn btn-danger" onClick={closeModal}>close</button>
+                <button className="btn btn-success" onClick={updateCurr}>Update</button>
               </Modal>
 
-            </div>
-          </div>
-        </div>
-      </nav>
+           
       <div>
         <table>
           <tr className="tableHead">
@@ -184,7 +178,10 @@ export default function Currency() {
           </tr>
 
           {currency &&
-            currency.map((item) => {
+            currency.filter((item) => {
+              return search.toLowerCase() === '' ? item : item.curr.toLowerCase().includes(search);
+            })
+            .map ((item) => {
               if (item.isArchive === 0) {
                 return (
                   <tr>

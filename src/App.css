@@ -143,4 +143,10 @@ border-bottom: 2px solid white;}
 
   /* password icon css */
   .passwrap{position: relative;}
-  .passwrap span{position: absolute;top: 5px;right: 12px;cursor: pointer;;}
+  .passwrap span{position: absolute;top: 5px;right: 12px;cursor: pointer;}
+
+  ul, li {
+    list-style: none;
+    padding: 4px;
+    margin: 0;
+}

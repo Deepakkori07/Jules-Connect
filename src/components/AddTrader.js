@@ -83,7 +83,7 @@ export default function AddTrader() {
           <label for="inputPassword4" class="form-label">
             Password
           </label>
-          <input type="password" class="form-control" id="inputPassword4" />
+          <input type="password" class="form-control" id="inputPassword4" value={traderPassword} onChange={(e) => setTraderPassword(e.target.value)}/>
         </div>
         <div class="col-md-6">
           <label htmlFor="AssignCategory">Assign Category</label>

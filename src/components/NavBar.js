@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/jules.png"
 
 export default function NavBar() {
-  const [color, setColor] = useState('green')
+  const [color, setColor] = useState('black')
   const navigate = useNavigate();
+
+  const logOut = () => {
+    localStorage.clear()
+    navigate("/");
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <span className="navbar-brand" style={{color:color}} onClick={()=>{setColor('#fc7e17')}}><b>Jules Connect</b></span>
+          <img src={logo} alt="logo" style={{height:'80px'}}></img>
+          <span className="navbar-brand" style={{color:color,fontSize:'30px'}} onClick={()=>{setColor('#fc7e17')}}><b>Jules Connect</b></span>
           <button
             className="navbar-toggler"
             type="button"
@@ -22,7 +29,7 @@ export default function NavBar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{justifyContent:'center',flex:'1'}}>
             <li className="nav-item">
                 <span className="nav-link" role="button" onClick={() => navigate("/Home")}>
                   Home
@@ -248,7 +255,7 @@ export default function NavBar() {
                   </span>
                 </li>
                 <li>
-                  <span className="dropdown-item" role="button" onClick={() => navigate("/")}>Sign Out</span>
+                  <span className="dropdown-item" role="button" onClick={logOut}>Sign Out</span>
                 </li>
               </ul>
             </span>

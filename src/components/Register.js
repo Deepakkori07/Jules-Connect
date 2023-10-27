@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/jules.png"
 
 export default function Register() {
     const [adminName, setAdminName] = useState("");
@@ -54,7 +55,8 @@ export default function Register() {
     return (
       <div>
         <div className="auth">
-        <h1 style={{color:'#fc7e17',textAlign:'center'}}>Create Account</h1>
+        <h1 style={{color:'#fc7e17',textAlign:'center'}}>
+        <img src={logo} alt="logo" style={{height:'70px'}}></img>Create Account</h1>
             <hr></hr>
           <form class="row g-3">
             <div class="col-md-12">

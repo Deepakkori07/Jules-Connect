@@ -43,17 +43,10 @@ export default function UpdateMaterial() {
     setCurrDate(materialId.materialDate);
   };
 
-  // console.log("hiiii");
-  // console.log(materials);
-
   useEffect(() => {
-    console.log("hiiii");
-
-    console.log("organisation==", id);
-
     setCurrMaterialData(id);
   }, [id]);
-  // console.log("curr data");
+  
 
   const updateMaterialData = () => {
     let obj = {

@@ -6,9 +6,13 @@ export default function Auth() {
     const navigate = useNavigate();
   
     useEffect(() => {
-  sessionStorage.clear()
-  navigate("/Login");
-},[])
+      let adminEmail=localStorage.getItem('adminEmail');
+      if(adminEmail === '' || adminEmail === null){
+        navigate("/Login");
+      }else{
+        navigate("/Home");
+      }
+    },[]);
 
   
     return (
