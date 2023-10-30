@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { updateMaterial } from "../Reducers/MaterialSlice";
 import { useDispatch } from "react-redux";
 import moment from "moment/moment";
+import Swal from "sweetalert2";
 
 export default function UpdateMaterial() {
   const { materials } = useSelector((state) => state.materials);
@@ -66,6 +67,12 @@ export default function UpdateMaterial() {
 
     dispatch(updateMaterial(obj));
     navigate("/ViewMaterial");
+    Swal.fire({
+      icon: "success",
+      title: "Material Updated",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
 
   return (

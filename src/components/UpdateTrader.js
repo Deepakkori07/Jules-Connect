@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateTrader } from "../Reducers/TraderSlice";
 import MultiSelect from "multiselect-react-dropdown";
+import Swal from "sweetalert2";
 
 export default function UpdateTrader() {
   const { traders } = useSelector((state) => state.traders);
@@ -47,6 +48,12 @@ export default function UpdateTrader() {
     };
     dispatch(updateTrader(obj));
     navigate("/MyTraders");
+    Swal.fire({
+      icon: "success",
+      title: "Trader updated",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
   const onSelect = (tradercategory, selectedItem) => {
     console.log("selectedItem", selectedItem);

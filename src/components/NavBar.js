@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/jules.png"
+import logo from "../assets/jules.png";
 
 export default function NavBar() {
-  const [color, setColor] = useState('black')
+  const [color, setColor] = useState("black");
   const navigate = useNavigate();
 
   const logOut = () => {
-    // let adminEmail=localStorage.getItem('adminEmail');
     localStorage.removeItem("adminEmail");
     localStorage.removeItem("adminName");
     navigate("/");
@@ -16,8 +15,16 @@ export default function NavBar() {
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <img src={logo} alt="logo" style={{height:'80px'}}></img>
-          <span className="navbar-brand" style={{color:color,fontSize:'30px'}} onClick={()=>{setColor('#fc7e17')}}><b>Jules Connect</b></span>
+          <img src={logo} alt="logo" style={{ height: "80px" }}></img>
+          <span
+            className="navbar-brand"
+            style={{ color: color, fontSize: "30px" }}
+            onClick={() => {
+              setColor("#fc7e17");
+            }}
+          >
+            <b>Jules Connect</b>
+          </span>
           <button
             className="navbar-toggler"
             type="button"
@@ -30,10 +37,16 @@ export default function NavBar() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{justifyContent:'center',flex:'1'}}>
-            <li className="nav-item">
-                <span className="nav-link" role="button" onClick={() => navigate("/Home")}>
+            <ul
+              className="navbar-nav me-auto mb-2 mb-lg-0"
+              style={{ justifyContent: "center", flex: "1" }}
+            >
+              <li className="nav-item">
+                <span
+                  className="nav-link"
+                  role="button"
+                  onClick={() => navigate("/Home")}
+                >
                   Home
                 </span>
               </li>
@@ -67,7 +80,7 @@ export default function NavBar() {
                         className="dropdown-item"
                         onClick={() => navigate("/ArchivedTrader")}
                       >
-                        Archive
+                        Archive Traders
                       </span>
                     </li>
                   </ul>
@@ -118,12 +131,20 @@ export default function NavBar() {
                 </span>
               </li>
               <li className="nav-item">
-                <span className="nav-link" role="button" onClick={() => navigate("/Payment")}>
+                <span
+                  className="nav-link"
+                  role="button"
+                  onClick={() => navigate("/Payment")}
+                >
                   Payments
                 </span>
               </li>
               <li className="nav-item">
-                <span className="nav-link" role="button" onClick={() => navigate("/Data")}>
+                <span
+                  className="nav-link"
+                  role="button"
+                  onClick={() => navigate("/Data")}
+                >
                   Data
                 </span>
               </li>
@@ -200,7 +221,6 @@ export default function NavBar() {
                         Archived Location
                       </span>
                     </li>
-                    
                   </ul>
                 </span>
               </li>
@@ -251,13 +271,28 @@ export default function NavBar() {
                   <span
                     className="dropdown-item"
                     role="button"
+                    onClick={() => navigate("/ArchivedSubAdmin")}
+                  >
+                    Archived Sub-Admin
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="dropdown-item"
+                    role="button"
                     onClick={() => navigate("/SubscriptionPlan")}
                   >
                     Subscription Plan
                   </span>
                 </li>
                 <li>
-                  <span className="dropdown-item" role="button" onClick={logOut}>Sign Out</span>
+                  <span
+                    className="dropdown-item"
+                    role="button"
+                    onClick={logOut}
+                  >
+                    Sign Out
+                  </span>
                 </li>
               </ul>
             </span>

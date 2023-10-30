@@ -34,8 +34,6 @@ export default function Register() {
       }
       return isproceed;
     }
-   
-  
     const handleSubmit = (e) => {
       if(IsValidate())
       e.preventDefault();
@@ -103,13 +101,11 @@ export default function Register() {
                 onChange={(e) => setAdminPassword(e.target.value)}
               />
             </div>
-  
             <div class="col-12">
               <button type="submit" class="btn btn-warning" onClick={handleSubmit} style={{width:'100%'}}>
                 Sign up
               </button>
-            </div>
-            
+            </div> 
           </form>
         </div>
       </div>

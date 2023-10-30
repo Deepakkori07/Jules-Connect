@@ -5,6 +5,10 @@ import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { useDispatch } from 'react-redux'
 import { updateSubAdmin } from '../Reducers/SubAdminSlice'
 import moment from 'moment'
+import Swal from 'sweetalert2';
+import { Icon } from "react-icons-kit";
+import { eyeOff } from "react-icons-kit/feather/eyeOff";
+import { eye } from "react-icons-kit/feather/eye";
 
 export default function UpdateSubAdmin() {
   const {subAdmin} = useSelector((state) => state.subAdmin)
@@ -13,6 +17,8 @@ export default function UpdateSubAdmin() {
   const [currSubAdminEmail, setCurrSubAdminEmail] = useState("")
   const [currSubAdminPassword, setCurrSubAdminPassword] = useState("")
   const [currAdminDate, setcurrAdminDate] = useState("");
+  const [icon, setIcon] = useState(eyeOff);
+  const [type, setType] = useState("password"); 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -40,12 +46,27 @@ export default function UpdateSubAdmin() {
     };
     dispatch(updateSubAdmin(obj));
     navigate("/SubAdminProfile");
-  }
+    Swal.fire({
+      icon: "success",
+      title: "SubAdmin Updated",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  };
+  const handleToggle = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
   return (
     <div>
         <NavBar/>
         <form>
-        <div className='wrapper'>
+        {/* <div className='wrapper'>
         <div className='checkout-step active'>
             <div className='step-title'>
                 <h5>Update Sub Admin Profile</h5>
@@ -75,7 +96,67 @@ export default function UpdateSubAdmin() {
             </div>
         </div>
 
-    </div>
+    </div> */}
+
+<div className="container-custom">
+        <h1 style={{ color: "#fc7e17", textAlign: "center" }}>ADD SUB-ADMIN PROFILE</h1>
+        <hr></hr>
+
+        <form class="row g-3">
+          <div class="col-6">
+            <label for="inputAddress" class="form-label">
+              Sub-Admin Name
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              value={currSubAdminName}
+              onChange={(e) => setCurrSubAdminName(e.target.value)}
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="inputEmail4" class="form-label">
+              Trader Email
+            </label>
+            <input
+              type="email"
+              class="form-control"
+              id="inputEmail4"
+              value={currSubAdminEmail}
+              onChange={(e) => setCurrSubAdminEmail(e.target.value)}
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">
+              Password
+            </label>
+            <div className="passwrap">
+            <input
+              type={type}
+              class="form-control"
+              id="inputPassword4"
+              value={currSubAdminPassword}
+              onChange={(e) => setCurrSubAdminPassword(e.target.value)}
+            />
+            <span onClick={handleToggle}>
+                <Icon icon={icon}></Icon>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button
+              type="submit"
+              class="btn btn-success"
+              onClick={updateSubAdminData}
+              style={{ width: "100%" }}
+            >
+              Add Trader
+            </button>
+          </div>
+        </form>
+      </div>
         </form>
     </div>
   )
