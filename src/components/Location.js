@@ -7,6 +7,7 @@ import { archiveLocation } from '../Reducers/LocationSlice'
 import { updateLocation } from '../Reducers/LocationSlice'
 import moment from 'moment'
 import Modal from 'react-modal';
+import Swal from 'sweetalert2'
 
 export default function Location() {
     const {location} = useSelector((state) => state.location)
@@ -43,6 +44,12 @@ export default function Location() {
         dispatch(addLocation(obj));
         setLoc("");
         setlocationDate("");
+        Swal.fire({
+          icon: "success",
+          title: "Location Added",
+          showConfirmButton: false,
+          timer: 2000,
+        });
     };
 
     const updateArchive = (ids) => {
@@ -51,6 +58,12 @@ export default function Location() {
             id: ids,
         };
         dispatch(archiveLocation(obj));
+        Swal.fire({
+          icon: "success",
+          title: "Location Archived",
+          showConfirmButton: false,
+          timer: 2000,
+        });
     };
 
     const setCurrLocationData = (ids) => {
@@ -76,6 +89,12 @@ export default function Location() {
         isArchive: 0,
       };
       dispatch(updateLocation(obj));
+      Swal.fire({
+        icon: "success",
+        title: "Location Updated",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     };
   return (
     <div>
@@ -170,7 +189,7 @@ export default function Location() {
       <div>
         <table>
           <tr className="tableHead">
-            <th>Unit Name</th>
+            <th>Country Name</th>
             <th>Created Date </th>
             <th></th>
           </tr>
@@ -216,6 +235,7 @@ export default function Location() {
                             fill="currentColor"
                             class="bi bi-box-arrow-in-down"
                             viewBox="0 0 16 16"
+                            color='red'
                           >
                             <path
                               fill-rule="evenodd"

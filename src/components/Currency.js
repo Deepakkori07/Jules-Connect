@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import moment from "moment";
 import { archiveCurrency } from "../Reducers/CurrencySlice";
 import Modal from "react-modal";
+import Swal from "sweetalert2";
 
 
 export default function Currency() {
@@ -44,6 +45,12 @@ export default function Currency() {
     dispatch(addCurrency(obj));
     setCurrency("");
     setCurrencyDate("");
+    Swal.fire({
+      icon: "success",
+      title: "Currency Added",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
 
   const updateArchive = (ids) => {
@@ -52,6 +59,12 @@ export default function Currency() {
       id: ids,
     };
     dispatch(archiveCurrency(obj));
+    Swal.fire({
+      icon: "success",
+      title: "Currency Archived",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
 
   const setCurrData = (ids) => {
@@ -77,6 +90,12 @@ export default function Currency() {
       isArchive: 0,
     };
     dispatch(updateCurrency(obj));
+    Swal.fire({
+      icon: "success",
+      title: "Currency Updated",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
   return (
     <div>
@@ -218,6 +237,7 @@ export default function Currency() {
                             fill="currentColor"
                             class="bi bi-box-arrow-in-down"
                             viewBox="0 0 16 16"
+                            color='red'
                           >
                             <path
                               fill-rule="evenodd"

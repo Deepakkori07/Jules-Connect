@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useNavigate } from "react-router-dom";
 import moment from "moment/moment";
+import Swal from "sweetalert2";
 
 export default function AddMaterial() {
   const [materialName, setmaterialName] = useState("");
@@ -58,6 +59,12 @@ export default function AddMaterial() {
     setmaterialNotes("");
     setMaterialDate("");
     navigate("/ViewMaterial");
+    Swal.fire({
+      icon: "success",
+      title: "Material Added",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
   return (
     <div>

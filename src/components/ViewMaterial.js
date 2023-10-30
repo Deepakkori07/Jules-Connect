@@ -4,9 +4,11 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useNavigate } from "react-router-dom";
 import { archiveMaterial } from "../Reducers/MaterialSlice";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
 export default function ViewMaterial() {
   const { materials } = useSelector((state) => state.materials);
+  console.log(materials);
   const [search, setSearch] = useState("")
   const navigate = useNavigate();
   console.log(materials);
@@ -18,6 +20,12 @@ export default function ViewMaterial() {
       id:ids,
     };
     dispatch(archiveMaterial(obj));
+    Swal.fire({
+      icon: "success",
+      title: "Material Archived",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   }
   
   return (
@@ -111,6 +119,7 @@ export default function ViewMaterial() {
                           fill="currentColor"
                           class="bi bi-box-arrow-in-down"
                           viewBox="0 0 16 16"
+                          color='red'
                         >
                           <path
                             fill-rule="evenodd"

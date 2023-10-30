@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
 import { archiveTrader } from '../Reducers/TraderSlice';
-
+import Swal from 'sweetalert2';
 
  function MyTraders() {
     const navigate = useNavigate();
@@ -13,7 +13,6 @@ import { archiveTrader } from '../Reducers/TraderSlice';
     const {traders} = useSelector((state) => state.traders)
     const {categories} = useSelector((state) => state.traders)
    
-    console.log(traders);
     const dispatch = useDispatch();
 
     const updateArchive = (ids) => {
@@ -22,7 +21,14 @@ import { archiveTrader } from '../Reducers/TraderSlice';
         id:ids,
       };
       dispatch(archiveTrader(obj));
+      Swal.fire({
+        icon: "success",
+        title: "Trader Archived",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
+
   return (
     <div>
         <NavBar/>
@@ -82,11 +88,12 @@ import { archiveTrader } from '../Reducers/TraderSlice';
               return search.toLowerCase() === '' ? item : item.traderName.toLowerCase().includes(search);
             })
             .map((item) => {
+              console.log("item",item);
               if(item.isArchive === 0){
               return (
                 <tr>
                   <td>{item.traderName}</td>
-                  <td>{item.traderCategory}</td>
+                  <td>{item.traderCategory.join(', ')}</td>
                   <td>{item.traderDate}</td>
                   <>
                     <span className="t1">
@@ -115,7 +122,7 @@ import { archiveTrader } from '../Reducers/TraderSlice';
                           fill="currentColor"
                           class="bi bi-box-arrow-in-down"
                           viewBox="0 0 16 16"
-
+                          color='red'
                         >
                           <path
                             fill-rule="evenodd"

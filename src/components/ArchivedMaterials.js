@@ -3,6 +3,7 @@ import NavBar from './NavBar'
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { unarchiveMaterial } from '../Reducers/MaterialSlice';
+import Swal from 'sweetalert2';
 
 export default function ArchivedMaterials() {
     const {materials} = useSelector((state) => state.materials)
@@ -15,6 +16,12 @@ export default function ArchivedMaterials() {
             
         };
         dispatch(unarchiveMaterial(obj));
+        Swal.fire({
+          icon: "success",
+          title: "Material UnArchived",
+          showConfirmButton: false,
+          timer: 2000,
+        });
     };
   return (
     <div>
@@ -63,7 +70,7 @@ export default function ArchivedMaterials() {
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
                             height="16"
-                            fill="currentColor"
+                            fill="blue"
                             class="bi bi-box-arrow-up"
                             viewBox="0 0 16 16"
                           >

@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import { unarchiveTrader } from "../Reducers/TraderSlice";
+import Swal from "sweetalert2";
 
 export default function ArchivedTrader() {
   const { traders } = useSelector((state) => state.traders);
@@ -15,6 +16,12 @@ export default function ArchivedTrader() {
       id: ids,
     };
     dispatch(unarchiveTrader(obj));
+    Swal.fire({
+      icon: "success",
+      title: "Trader UnArchived",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
   return (
     <div>
@@ -66,7 +73,7 @@ export default function ArchivedTrader() {
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
                             height="16"
-                            fill="currentColor"
+                            fill="blue"
                             class="bi bi-box-arrow-up"
                             viewBox="0 0 16 16"
                           >

@@ -7,6 +7,7 @@ import { archiveUnits } from "../Reducers/UnitSlice";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import Modal from "react-modal";
+import Swal from "sweetalert2";
 
 export default function Unit() {
   const { units } = useSelector((state) => state.units);
@@ -43,6 +44,12 @@ export default function Unit() {
     dispatch(addUnits(obj));
     setUnit("");
     setunitDate("");
+    Swal.fire({
+      icon: "success",
+      title: "Unit Added",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
   
   const updateArchive = (ids) => {
@@ -51,6 +58,12 @@ export default function Unit() {
       id: ids,
     };
     dispatch(archiveUnits(obj));
+    Swal.fire({
+      icon: "success",
+      title: "Unit Archived",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
 
   const setCurrUnitData = (ids) => {
@@ -77,6 +90,12 @@ const updateUnit = () => {
     
   };
   dispatch(updateUnits(obj));
+  Swal.fire({
+    icon: "success",
+    title: "Unit Updated",
+    showConfirmButton: false,
+    timer: 2000,
+  });
 
   };
   return (
@@ -221,6 +240,7 @@ const updateUnit = () => {
                             fill="currentColor"
                             class="bi bi-box-arrow-in-down"
                             viewBox="0 0 16 16"
+                            color='red'
                           >
                             <path
                               fill-rule="evenodd"

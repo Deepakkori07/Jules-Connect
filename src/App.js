@@ -28,6 +28,7 @@ import ArchivedLocation from "./components/ArchivedLocation";
 import Auth from "./components/Auth";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Data from "./components/Data";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
       <Route path="/" element={<Auth/>} />
       <Route path="/Register" element={<Register/>} />
       <Route path="/Login" element={<Login/>} />
+      <Route path="/Data" element={<Data/>} />
       
     </Routes>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/jules.png"
+import Swal from "sweetalert2";
 
 export default function Register() {
     const [adminName, setAdminName] = useState("");
@@ -46,11 +47,18 @@ export default function Register() {
         headers:{'content-type':'application/json'},
         body:JSON.stringify(userobj)
       }).then((res) => {
-        alert("Registerd success")
+        localStorage.setItem("adminName", adminName);
         navigate("/Login");
       }).catch((error) => {
-        alert("failed:"+error.message);
+        // alert("failed:"+error.message);
       });
+      Swal.fire({
+        position: 'relative',
+        icon: 'success',
+        title: 'Registration Successfull',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }
     return (
       <div>

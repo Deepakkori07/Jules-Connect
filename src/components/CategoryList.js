@@ -3,10 +3,10 @@ import NavBar from "./NavBar";
 import { addCategory } from "../Reducers/CategorySlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { useNavigate } from "react-router-dom";
 import { archiveCategory } from "../Reducers/CategorySlice";
 import { updateCategories } from '../Reducers/CategorySlice'
 import moment from "moment/moment";
+import Swal from "sweetalert2";
 
 export default function CategoryList() {
   const [materialCategory, setMaterialCategory] = useState("");
@@ -15,11 +15,9 @@ export default function CategoryList() {
   const [search, setSearch] = useState("");
   const [updateId, setupdateId] = useState("");
   const [modalIsOpen, setIsOpen] = useState("");
-  console.log(search);
   const {categories} = useSelector((state) => state.categories);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  console.log(addCategory);
+
 
   useEffect(() => {
     addCategory();
@@ -40,14 +38,27 @@ export default function CategoryList() {
     dispatch(addCategory(obj));
     setMaterialCategory("");
     setCategoryDate("");
+    Swal.fire({
+      icon: "success",
+      title: "Category Added",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
 
   const updateArchive = (ids) => {
     let obj = {
       isArchive:1,
       id:ids,
+
     };
     dispatch(archiveCategory(obj));
+    Swal.fire({
+      icon: "success",
+      title: "Category Archived",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   }
 
   const setCurrCategoriesData = (ids) => {
@@ -68,10 +79,16 @@ export default function CategoryList() {
     let obj = {
       materialCategory: currCategory,
       id: updateId,
-      itDate: moment().format("DD/MM/YYYY"),
+      categoryDate: moment().format("DD/MM/YYYY"),
       isArchive: 0,
     };
     dispatch(updateCategories(obj));
+    Swal.fire({
+      icon: "success",
+      title: "Category Updated",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
 
   return (
@@ -198,7 +215,8 @@ export default function CategoryList() {
                               viewBox="0 0 16 16"
                               aria-label="Close"
                               data-bs-toggle="modal"
-              data-bs-target="#exampleModalUpdate"
+                             data-bs-target="#exampleModalUpdate"
+                             
                             >
                               <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                               <path
@@ -215,6 +233,7 @@ export default function CategoryList() {
                               fill="currentColor"
                               class="bi bi-box-arrow-in-down"
                               viewBox="0 0 16 16"
+                              color='red'
                             >
                               <path
                                 fill-rule="evenodd"

@@ -13,6 +13,9 @@ export default function SubAdminProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  let adminEmail=localStorage.getItem('adminEmail');
+  let adminName=localStorage.getItem('adminName');
+
   const updateArchive = (ids) => {
     let obj = {
       isArchive:1,
@@ -25,14 +28,12 @@ export default function SubAdminProfile() {
       <NavBar />
       <div className="banner">
         <div>
-          <h2>Deepak</h2>
-          <b> Admin Name:</b>
-          Deepak Kori
+          <h5> Admin Name: {adminName}</h5>
         </div>
         <div>
           <h5>
             Email:
-            deepak@gmail.com
+            {adminEmail}
             <span >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

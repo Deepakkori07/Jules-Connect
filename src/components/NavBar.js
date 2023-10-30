@@ -7,7 +7,9 @@ export default function NavBar() {
   const navigate = useNavigate();
 
   const logOut = () => {
-    localStorage.clear()
+    // let adminEmail=localStorage.getItem('adminEmail');
+    localStorage.removeItem("adminEmail");
+    localStorage.removeItem("adminName");
     navigate("/");
   };
   return (
@@ -121,7 +123,7 @@ export default function NavBar() {
                 </span>
               </li>
               <li className="nav-item">
-                <span className="nav-link" role="button" onClick={() => navigate("/Traders")}>
+                <span className="nav-link" role="button" onClick={() => navigate("/Data")}>
                   Data
                 </span>
               </li>

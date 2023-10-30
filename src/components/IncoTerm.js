@@ -6,6 +6,9 @@ import { useDispatch } from "react-redux";
 import moment from "moment";
 import { archiveIncoTerm } from "../Reducers/IncoTermSlice";
 import  Modal  from "react-modal";
+import Swal from "sweetalert2";
+
+
 export default function IncoTerm() {
   const { incoTerm } = useSelector((state) => state.incoTerm);
   const [currIncoTerm, setcurrIncoTerm] = useState("");
@@ -42,6 +45,12 @@ export default function IncoTerm() {
     dispatch(addIncoTerm(obj));
     setIncoT("");
     setITDate("");
+    Swal.fire({
+      icon: "success",
+      title: "IncoTerm Added",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
 
   const updateArchive = (ids) => {
@@ -50,6 +59,12 @@ export default function IncoTerm() {
       id: ids,
     };
     dispatch(archiveIncoTerm(obj));
+    Swal.fire({
+      icon: "success",
+      title: "IncoTerm Archived",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
 
   const setcurrIncoTermData = (ids) => {
@@ -74,18 +89,13 @@ export default function IncoTerm() {
       isArchive: 0,
     };
     dispatch(updateIncoTerm(obj));
+    Swal.fire({
+      icon: "success",
+      title: "IncoTerm Updated",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   };
-
-  let subtitle;
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
 
 
   return (
@@ -175,6 +185,7 @@ export default function IncoTerm() {
                               fill="currentColor"
                               class="bi bi-box-arrow-in-down"
                               viewBox="0 0 16 16"
+                              color='red'
                             >
                               <path
                                 fill-rule="evenodd"
